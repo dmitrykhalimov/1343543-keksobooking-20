@@ -134,8 +134,8 @@ var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map_
 
 var renderAdverts = function () {
   var mapPin = mapPinTemplate.cloneNode(true);
-  mapPin.style.left = mainArray[i].location.x + 'px';
-  mapPin.style.top = mainArray[i].location.y + 'px';
+  mapPin.style.left = Number(mainArray[i].location.x - 25) + 'px';
+  mapPin.style.top = Number(mainArray[i].location.y - 70) + 'px';
   mapPin.querySelector('img').src = mainArray[i].author.avatar;
   mapPin.querySelector('img').alt = mainArray[i].offer.title;
   return mapPin;
