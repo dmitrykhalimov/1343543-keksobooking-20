@@ -115,7 +115,7 @@ var generateFeatures = function () {
 };
 
 var fillArray = function () {
-  for (var i = 0; i <= 7; i++) {
+  for (var i = 0; i < mainArray.length; i++) {
     mainArray[i].author.avatar = generateAvatarLink(i);
     mainArray[i].offer.title = TITLE[i];
     mainArray[i].location.x = generateRandomNumber(0, 1200);
@@ -148,7 +148,7 @@ var renderAdverts = function () {
 
 var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < 8; i++) {
+for (var i = 0; i < mainArray.length; i++) {
   fragment.appendChild(renderAdverts(mainArray[i]));
 }
 
