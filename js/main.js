@@ -23,6 +23,8 @@ var AD_TEMPLATE = {
   }
 };
 
+var ADS_QUANTITY = 8;
+
 var AVATAR_NAME_PREFIX = 'img/avatars/user';
 var AVATAR_NAME_POSTFIX = '.png';
 
@@ -67,15 +69,19 @@ var APPARTMENT_PICTURES = [
 
 var mainArray = [];
 
-for (var i = 0; i <= 7; i++) {
-  mainArray.push(JSON.parse(JSON.stringify(AD_TEMPLATE)));
-}
+var makeArray = function () {
+  for (var i = 0; i < ADS_QUANTITY; i++) {
+    mainArray.push(JSON.parse(JSON.stringify(AD_TEMPLATE)));
+  }
+};
+
+makeArray();
 
 var generateAvatarLink = function (number) {
   return AVATAR_NAME_PREFIX + '0' + (number + 1) + AVATAR_NAME_POSTFIX;
 };
 
-var generateRandomNumber = function (min,max) {
+var generateRandomNumber = function (min, max) {
   var randomNumber = min + Math.random() * (max + 1 - min);
   return Math.floor(randomNumber);
 };
@@ -98,7 +104,7 @@ var generatePictures = function () {
   return mixArray(APPARTMENT_PICTURES);
 };
 
-var generateFeatures = function (i) {
+var generateFeatures = function () {
   var outputArray = mixArray(APPARTMENT_FEATURES);
   var numberFeatures = generateRandomNumber(1, APPARTMENT_FEATURES.length - 1);
 
@@ -116,8 +122,7 @@ var fillArray = function () {
     mainArray[i].location.y = generateRandomNumber(130, 630);
     mainArray[i].offer.address = mainArray[i].location.x + ', ' + mainArray[i].location.y;
     mainArray[i].offer.price = generateRandomNumber(1000, 1000000);
-    var bungalo = generateRandomNumber(0, 3) //убрать потом
-    mainArray[i].offer.type = APPARTMENT_TYPE[bungalo];
+    mainArray[i].offer.type = APPARTMENT_TYPE[generateRandomNumber(0, 3)];
     mainArray[i].offer.rooms = generateRandomNumber(1, 5);
     mainArray[i].offer.guests = generateRandomNumber(1, 8);
     mainArray[i].offer.checkin = APPARTMENT_TIME[generateRandomNumber(0, 2)];
@@ -148,6 +153,3 @@ for (var i = 0; i < 8; i++) {
 }
 
 document.querySelector('.map__pins').appendChild(fragment);
-
-console.log(mainArray);
-console.log(fragment);
