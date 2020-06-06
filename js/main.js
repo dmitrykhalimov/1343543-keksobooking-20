@@ -140,8 +140,6 @@ for (var i = 0; i < mainArray.length; i++) {
 
 document.querySelector('.map__pins').appendChild(fragment);
 
-//создаем карточку
-
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
 var transformFlatType = function (typeFlat) {
@@ -161,15 +159,15 @@ var transformFlatType = function (typeFlat) {
 
 var diffArrays = function (array1, array2) {
   var diff = [];
-  for (var i = 0; i < array2.length; i++) {
+  for (var k = 0; k < array2.length; k++) {
     var found = false;
     for (var j in array1) {
-      if (array2[i] === array1[j]) {
+      if (array2[k] === array1[j]) {
         found = true;
       }
     }
     if (found === false) {
-      diff.push(array2[i]);
+      diff.push(array2[k]);
     }
   }
   return diff;
@@ -179,9 +177,24 @@ var renderFeatures = function (features, card) {
   var featuresToRemove = diffArrays(features, APPARTMENT_FEATURES);
   var listFeatures = card.querySelector('.popup__features');
 
-  for (var i = 0; i < featuresToRemove.length; i++) {
-    var featureToRemove = '.popup__feature--' + featuresToRemove[i];
+  for (var j = 0; j < featuresToRemove.length; j++) {
+    var featureToRemove = '.popup__feature--' + featuresToRemove[j];
     listFeatures.removeChild(card.querySelector(featureToRemove));
+  }
+};
+
+var renderPictures = function (pictures, card) {
+  var picturesContainer = card.querySelector('.popup__photos');
+  picturesContainer.removeChild(picturesContainer.querySelector('.popup__photo'));
+
+  for (i = 0; i < pictures.length; i++) {
+    var picture = document.createElement('img');
+    picture.classList.add('popup__photo');
+    picture.width = 45;
+    picture.height = 50;
+    picture.src = pictures[i];
+    picture.alt = 'Фотография жилья';
+    picturesContainer.appendChild(picture);
   }
 };
 
@@ -201,19 +214,12 @@ var renderCard = function (advert) {
   card.querySelector('.popup__avatar').src = advert.author.avatar;
 
   renderFeatures(advert.offer.features, card);
-  /*
-  card.querySelector('.popup__features').textContent = advert.offer.features;
+  renderPictures(advert.offer.pictures, card);
 
-
-
-
-  console.log(card.querySelector('.popup__title'));
-  */
   return card;
 };
 
 var fragment2 = document.createDocumentFragment();
 fragment2.appendChild(renderCard(mainArray[0]));
-console.log(fragment2);
 
 document.querySelector('.map').insertBefore(fragment2, document.querySelector('.map__filters-container'));
