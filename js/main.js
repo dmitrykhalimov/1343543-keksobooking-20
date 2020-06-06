@@ -159,38 +159,30 @@ var transformFlatType = function (typeFlat) {
   }
 };
 
-var diffArrays = function(array1, array2) {
-
-}
-
-var generateFeatures = function(features, card) {
-  /*
-  console.log(advert.offer.features);
-
-  for (var i = 0; i < APPARTMENT_FEATURES.length; i++) {
-
-  }
-  */
-
+var diffArrays = function (array1, array2) {
   var diff = [];
-  for (var i = 0; i < APPARTMENT_FEATURES.length; i++) {
+  for (var i = 0; i < array2.length; i++) {
     var found = false;
-    for (var j in features) {
-      if(APPARTMENT_FEATURES[i] === features[j]) found = true;
+    for (var j in array1) {
+      if (array2[i] === array1[j]) {
+        found = true;
+      }
     }
-    if (found === false) diff.push(APPARTMENT_FEATURES[i]);
+    if (found === false) {
+      diff.push(array2[i]);
+    }
   }
-  console.log ('отсутствует ' + diff);
+  return diff;
+};
 
+var renderFeatures = function (features, card) {
+  var featuresToRemove = diffArrays(features, APPARTMENT_FEATURES);
   var listFeatures = card.querySelector('.popup__features');
 
-  for (var i = 0; i < diff.length; i++) {
-    var featureToRemove = '.popup__feature--' + diff[i];
+  for (var i = 0; i < featuresToRemove.length; i++) {
+    var featureToRemove = '.popup__feature--' + featuresToRemove[i];
     listFeatures.removeChild(card.querySelector(featureToRemove));
   }
-
-  console.log(listFeatures);
-
 };
 
 var renderCard = function (advert) {
@@ -208,7 +200,7 @@ var renderCard = function (advert) {
   card.querySelector('.popup__description').textContent = advert.offer.description;
   card.querySelector('.popup__avatar').src = advert.author.avatar;
 
-  generateFeatures(advert.offer.features, card);
+  renderFeatures(advert.offer.features, card);
   /*
   card.querySelector('.popup__features').textContent = advert.offer.features;
 
