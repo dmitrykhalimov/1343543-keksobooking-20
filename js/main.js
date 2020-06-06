@@ -205,11 +205,8 @@ var renderCard = function (advert) {
   card.querySelector('.popup__text--address').textContent = advert.offer.address;
   card.querySelector('.popup__text--price').textContent = advert.offer.price + ' ₽/ночь';
   card.querySelector('.popup__type').textContent = transformFlatType(advert.offer.type);
-
   card.querySelector('.popup__text--capacity').textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
-
   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
-
   card.querySelector('.popup__description').textContent = advert.offer.description;
   card.querySelector('.popup__avatar').src = advert.author.avatar;
 
