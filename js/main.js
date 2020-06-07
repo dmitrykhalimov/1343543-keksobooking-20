@@ -149,29 +149,17 @@ document.querySelector('.map__pins').appendChild(fragment);
 
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-var diffArrays = function (array1, array2) {
-  var diff = [];
-  for (var k = 0; k < array2.length; k++) {
-    var found = false;
-    for (var j in array1) {
-      if (array2[k] === array1[j]) {
-        found = true;
-      }
-    }
-    if (found === false) {
-      diff.push(array2[k]);
-    }
-  }
-  return diff;
-};
-
 var renderFeatures = function (features, card) {
-  var featuresToRemove = diffArrays(features, APPARTMENT_FEATURES);
   var listFeatures = card.querySelector('.popup__features');
+  while (listFeatures.firstChild) {
+    listFeatures.removeChild(listFeatures.firstChild);
+  }
 
-  for (var j = 0; j < featuresToRemove.length; j++) {
-    var featureToRemove = '.popup__feature--' + featuresToRemove[j];
-    listFeatures.removeChild(card.querySelector(featureToRemove));
+  for (var j = 0; j < features.length; j++) {
+    var li = document.createElement('li');
+    li.classList.add('popup__feature');
+    li.classList.add('popup__feature--' + features[j]);
+    listFeatures.appendChild(li);
   }
 };
 
