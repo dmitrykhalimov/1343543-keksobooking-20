@@ -23,6 +23,13 @@ var APPARTMENT_TYPE = [
   'bungalo'
 ];
 
+var TYPE_FLAT = {
+  'palace': 'Дворец',
+  'flat': 'Квартира',
+  'house': 'Дом',
+  'bungalo': 'Бунгало'
+};
+
 var APPARTMENT_TIME = [
   '12:00',
   '13:00',
@@ -142,21 +149,6 @@ document.querySelector('.map__pins').appendChild(fragment);
 
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
-var transformFlatType = function (typeFlat) {
-  switch (typeFlat) {
-    case 'flat':
-      return 'Квартира';
-    case 'bungalo':
-      return 'Бунгало';
-    case 'house':
-      return 'Дом';
-    case 'palace':
-      return 'Дворец';
-    default:
-      return typeFlat;
-  }
-};
-
 var diffArrays = function (array1, array2) {
   var diff = [];
   for (var k = 0; k < array2.length; k++) {
@@ -204,7 +196,7 @@ var renderCard = function (advert) {
   card.querySelector('.popup__title').textContent = advert.offer.title;
   card.querySelector('.popup__text--address').textContent = advert.offer.address;
   card.querySelector('.popup__text--price').textContent = advert.offer.price + ' ₽/ночь';
-  card.querySelector('.popup__type').textContent = transformFlatType(advert.offer.type);
+  card.querySelector('.popup__type').textContent = TYPE_FLAT[advert.offer.type];
   card.querySelector('.popup__text--capacity').textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
   card.querySelector('.popup__description').textContent = advert.offer.description;
