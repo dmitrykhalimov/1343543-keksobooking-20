@@ -182,6 +182,24 @@ var renderPictures = function (pictures, card) {
   }
 };
 
+var generateCapacityString = function (rooms, guests) {
+  var roomsString = 'комнат';
+  var guestString = 'гостей';
+  if (rooms === 1) {
+    roomsString += 'а';
+  } else if (rooms < 5) {
+    roomsString += 'ы';
+  }
+
+  if (guests === 1) {
+    guestString = 'гостя';
+  }
+
+  var capacityString = rooms + ' ' + roomsString + ' для ' + guests + ' ' + guestString;
+
+  return capacityString;
+};
+
 var renderCard = function (advert) {
   var card = cardTemplate.cloneNode(true);
 
@@ -189,7 +207,7 @@ var renderCard = function (advert) {
   card.querySelector('.popup__text--address').textContent = advert.offer.address;
   card.querySelector('.popup__text--price').textContent = advert.offer.price + ' ₽/ночь';
   card.querySelector('.popup__type').textContent = TYPE_FLAT[advert.offer.type];
-  card.querySelector('.popup__text--capacity').textContent = advert.offer.rooms + ' комнаты для ' + advert.offer.guests + ' гостей';
+  card.querySelector('.popup__text--capacity').textContent = (generateCapacityString(advert.offer.rooms, advert.offer.guests));
   card.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
   card.querySelector('.popup__description').textContent = advert.offer.description;
   card.querySelector('.popup__avatar').src = advert.author.avatar;
