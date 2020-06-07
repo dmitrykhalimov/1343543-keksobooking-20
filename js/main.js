@@ -23,6 +23,13 @@ var APPARTMENT_TYPE = [
   'bungalo'
 ];
 
+var TYPE_FLAT = {
+  'palace': 'Дворец',
+  'flat': 'Квартира',
+  'house': 'Дом',
+  'bungalo': 'Бунгало'
+};
+
 var APPARTMENT_TIME = [
   '12:00',
   '13:00',
@@ -104,7 +111,7 @@ var createPoint = function (index) {
     offer: {
       title: TITLE[index],
       address: location.x + ', ' + location.y,
-      price: generateRandomNumber(1000, 1000000),
+      price: generateRandomNumber(1000, 100000),
       type: APPARTMENT_TYPE[generateRandomNumber(0, 3)],
       rooms: generateRandomNumber(1, 5),
       guests: generateRandomNumber(1, 8),
@@ -123,19 +130,95 @@ fillArray();
 document.querySelector('.map').classList.remove('map--faded');
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-var renderAdverts = function () {
+var renderAdverts = function (advert) {
   var mapPin = mapPinTemplate.cloneNode(true);
-  mapPin.style.left = Number(mainArray[i].location.x - PIN_SHIFT_X) + 'px';
-  mapPin.style.top = Number(mainArray[i].location.y - PIN_SHIFT_Y) + 'px';
-  mapPin.querySelector('img').src = mainArray[i].author.avatar;
-  mapPin.querySelector('img').alt = mainArray[i].offer.title;
+  mapPin.style.left = Number(advert.location.x - PIN_SHIFT_X) + 'px';
+  mapPin.style.top = Number(advert.location.y - PIN_SHIFT_Y) + 'px';
+  mapPin.querySelector('img').src = advert.author.avatar;
+  mapPin.querySelector('img').alt = advert.offer.title;
   return mapPin;
 };
 
 var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < mainArray.length; i++) {
-  fragment.appendChild(renderAdverts(mainArray[i]));
-}
+var generateFragment = function () {
+  for (var i = 0; i < mainArray.length; i++) {
+    fragment.appendChild(renderAdverts(mainArray[i]));
+  }
+};
+
+generateFragment();
 
 document.querySelector('.map__pins').appendChild(fragment);
+
+var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
+
+var renderFeatures = function (features, card) {
+  var listFeatures = card.querySelector('.popup__features');
+  while (listFeatures.firstChild) {
+    listFeatures.removeChild(listFeatures.firstChild);
+  }
+
+  for (var i = 0; i < features.length; i++) {
+    var li = document.createElement('li');
+    li.classList.add('popup__feature');
+    li.classList.add('popup__feature--' + features[i]);
+    listFeatures.appendChild(li);
+  }
+};
+
+var renderPictures = function (pictures, card) {
+  var picturesContainer = card.querySelector('.popup__photos');
+  picturesContainer.removeChild(picturesContainer.querySelector('.popup__photo'));
+
+  for (var i = 0; i < pictures.length; i++) {
+    var picture = document.createElement('img');
+    picture.classList.add('popup__photo');
+    picture.width = 45;
+    picture.height = 50;
+    picture.src = pictures[i];
+    picture.alt = 'Фотография жилья';
+    picturesContainer.appendChild(picture);
+  }
+};
+
+var generateCapacityString = function (rooms, guests) {
+  var roomsString = 'комнат';
+  var guestString = 'гостей';
+  if (rooms === 1) {
+    roomsString += 'а';
+  } else if (rooms < 5) {
+    roomsString += 'ы';
+  }
+
+  if (guests === 1) {
+    guestString = 'гостя';
+  }
+
+  var capacityString = rooms + ' ' + roomsString + ' для ' + guests + ' ' + guestString;
+
+  return capacityString;
+};
+
+var renderCard = function (advert) {
+  var card = cardTemplate.cloneNode(true);
+
+  card.querySelector('.popup__title').textContent = advert.offer.title;
+  card.querySelector('.popup__text--address').textContent = advert.offer.address;
+  card.querySelector('.popup__text--price').textContent = advert.offer.price + ' ₽/ночь';
+  card.querySelector('.popup__type').textContent = TYPE_FLAT[advert.offer.type];
+  card.querySelector('.popup__text--capacity').textContent = (generateCapacityString(advert.offer.rooms, advert.offer.guests));
+  card.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
+  card.querySelector('.popup__description').textContent = advert.offer.description;
+  card.querySelector('.popup__avatar').src = advert.author.avatar;
+
+  renderFeatures(advert.offer.features, card);
+  renderPictures(advert.offer.pictures, card);
+
+  return card;
+};
+
+var fragmentCard = document.createDocumentFragment();
+fragmentCard.appendChild(renderCard(mainArray[0]));
+
+document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
