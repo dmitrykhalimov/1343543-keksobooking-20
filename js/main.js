@@ -141,9 +141,13 @@ var renderAdverts = function (advert) {
 
 var fragment = document.createDocumentFragment();
 
-for (var i = 0; i < mainArray.length; i++) {
-  fragment.appendChild(renderAdverts(mainArray[i]));
-}
+var generateFragment = function () {
+  for (var i = 0; i < mainArray.length; i++) {
+    fragment.appendChild(renderAdverts(mainArray[i]));
+  }
+};
+
+generateFragment();
 
 document.querySelector('.map__pins').appendChild(fragment);
 
@@ -155,10 +159,10 @@ var renderFeatures = function (features, card) {
     listFeatures.removeChild(listFeatures.firstChild);
   }
 
-  for (var j = 0; j < features.length; j++) {
+  for (var i = 0; i < features.length; i++) {
     var li = document.createElement('li');
     li.classList.add('popup__feature');
-    li.classList.add('popup__feature--' + features[j]);
+    li.classList.add('popup__feature--' + features[i]);
     listFeatures.appendChild(li);
   }
 };
@@ -167,7 +171,7 @@ var renderPictures = function (pictures, card) {
   var picturesContainer = card.querySelector('.popup__photos');
   picturesContainer.removeChild(picturesContainer.querySelector('.popup__photo'));
 
-  for (i = 0; i < pictures.length; i++) {
+  for (var i = 0; i < pictures.length; i++) {
     var picture = document.createElement('img');
     picture.classList.add('popup__photo');
     picture.width = 45;
@@ -196,7 +200,7 @@ var renderCard = function (advert) {
   return card;
 };
 
-var fragment2 = document.createDocumentFragment();
-fragment2.appendChild(renderCard(mainArray[0]));
+var fragmentCard = document.createDocumentFragment();
+fragmentCard.appendChild(renderCard(mainArray[0]));
 
-document.querySelector('.map').insertBefore(fragment2, document.querySelector('.map__filters-container'));
+document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
