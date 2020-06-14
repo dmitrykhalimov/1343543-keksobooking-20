@@ -127,7 +127,19 @@ var createPoint = function (index) {
 
 fillArray();
 
-document.querySelector('.map').classList.remove('map--faded');
+var changeFieldsets = function (isDisabled) {
+  var filedsets = document.querySelectorAll('fieldset');
+  console.log(filedsets);
+  for (var i = 0; i < filedsets.length; i++) {
+    filedsets[i].disabled = isDisabled;
+  }
+  console.log(filedsets);
+};
+
+changeFieldsets(true);
+
+// document.querySelector('.map').classList.remove('map--faded');
+// generateFragment();
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var renderAdverts = function (advert) {
@@ -147,7 +159,7 @@ var generateFragment = function () {
   }
 };
 
-generateFragment();
+
 
 document.querySelector('.map__pins').appendChild(fragment);
 
@@ -199,7 +211,7 @@ var generateCapacityString = function (rooms, guests) {
 
   return capacityString;
 };
-
+/*
 var renderCard = function (advert) {
   var card = cardTemplate.cloneNode(true);
 
@@ -222,3 +234,4 @@ var fragmentCard = document.createDocumentFragment();
 fragmentCard.appendChild(renderCard(mainArray[0]));
 
 document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
+*/
