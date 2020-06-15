@@ -214,14 +214,28 @@ var activateMap = function () {
   document.querySelector('.ad-form').classList.remove('ad-form--disabled');
   changeInputs('fieldset', false);
   changeInputs('.map__filter', false);
+  alert('Я вижу вас, бандерлоги!');
 };
 
 var mapPinMain = document.querySelector('.map__pin--main');
-mapPinMain.addEventListener('mousedown', function (evt) {
+
+var onMapPinEnter = function (evt) {
+  if (evt.key === 'Enter') {
+    activateMap();
+    mapPinMain.removeEventListener('keydown', onMapPinEnter);
+  }
+};
+
+var onMapPinClick = function (evt) {
   if (evt.button === 0) {
     activateMap();
+    mapPinMain.removeEventListener('mousedown', onMapPinClick);
   }
-});
+};
+
+mapPinMain.addEventListener('mousedown', onMapPinClick);
+
+mapPinMain.addEventListener('keydown', onMapPinEnter);
 
 /*
 var renderCard = function (advert) {
