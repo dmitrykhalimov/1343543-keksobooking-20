@@ -254,7 +254,6 @@ var guestsNumber = document.querySelector('#capacity');
 var checkRoomsGuests = function () {
   var rooms = Number(roomsNumber.value);
   var guests = Number(guestsNumber.value);
-  console.log(rooms + ' ' + guests);
   if (rooms === 100 || guests === 0) {
     if (rooms !== 100 || guests !== 0) {
       roomsNumber.setCustomValidity('100 комнат должно быть не для гостей');
