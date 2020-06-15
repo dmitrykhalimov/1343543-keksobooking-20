@@ -54,6 +54,9 @@ var APPARTMENT_PICTURES = [
 var PIN_SHIFT_X = 25;
 var PIN_SHIFT_Y = 70;
 
+var MAP_PIN_DEFAULT_X = 602;
+var MAP_PIN_DEFAULT_Y = 407;
+
 var mainArray = [];
 
 var generateAvatarLink = function (number) {
@@ -214,7 +217,6 @@ var activateMap = function () {
   document.querySelector('.ad-form').classList.remove('ad-form--disabled');
   changeInputs('fieldset', false);
   changeInputs('.map__filter', false);
-  alert('Я вижу вас, бандерлоги!');
 };
 
 var mapPinMain = document.querySelector('.map__pin--main');
@@ -229,12 +231,20 @@ var onMapPinEnter = function (evt) {
 var onMapPinClick = function (evt) {
   if (evt.button === 0) {
     activateMap();
+    placeMapAddress(30, 10);
     mapPinMain.removeEventListener('mousedown', onMapPinClick);
   }
 };
 
-mapPinMain.addEventListener('mousedown', onMapPinClick);
 
+var placeMapAddress = function (shiftX, shiftY) {
+  var fieldAddress = document.querySelector('#address');
+  fieldAddress.value = (MAP_PIN_DEFAULT_X + shiftX) + ', ' + (MAP_PIN_DEFAULT_Y + shiftY);
+};
+
+placeMapAddress(0, 0);
+
+mapPinMain.addEventListener('mousedown', onMapPinClick);
 mapPinMain.addEventListener('keydown', onMapPinEnter);
 
 /*
