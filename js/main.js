@@ -22,13 +22,13 @@ var APPARTMENT_TYPE = [
   'house',
   'bungalo'
 ];
-
+/*
 var TYPE_FLAT = {
   'palace': 'Дворец',
   'flat': 'Квартира',
   'house': 'Дом',
   'bungalo': 'Бунгало'
-};
+};*/
 
 var APPARTMENT_TIME = [
   '12:00',
@@ -50,10 +50,10 @@ var APPARTMENT_PICTURES = [
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
 ];
-
+/*
 var PIN_SHIFT_X = 25;
 var PIN_SHIFT_Y = 70;
-
+*/
 var MAP_PIN_DEFAULT_X = 602;
 var MAP_PIN_DEFAULT_Y = 407;
 
@@ -141,8 +141,9 @@ changeInputs('fieldset', true);
 changeInputs('.map__filter', true);
 
 // generateFragment();
-
+/*
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+
 
 var renderAdverts = function (advert) {
   var mapPin = mapPinTemplate.cloneNode(true);
@@ -152,8 +153,9 @@ var renderAdverts = function (advert) {
   mapPin.querySelector('img').alt = advert.offer.title;
   return mapPin;
 };
-
+/*
 var fragment = document.createDocumentFragment();
+
 
 var generateFragment = function () {
   for (var i = 0; i < mainArray.length; i++) {
@@ -211,7 +213,7 @@ var generateCapacityString = function (rooms, guests) {
 
   return capacityString;
 };
-
+*/
 var activateMap = function () {
   document.querySelector('.map').classList.remove('map--faded');
   document.querySelector('.ad-form').classList.remove('ad-form--disabled');
@@ -236,7 +238,6 @@ var onMapPinClick = function (evt) {
   }
 };
 
-
 var placeMapAddress = function (shiftX, shiftY) {
   var fieldAddress = document.querySelector('#address');
   fieldAddress.value = (MAP_PIN_DEFAULT_X + shiftX) + ', ' + (MAP_PIN_DEFAULT_Y + shiftY);
@@ -246,6 +247,27 @@ placeMapAddress(0, 0);
 
 mapPinMain.addEventListener('mousedown', onMapPinClick);
 mapPinMain.addEventListener('keydown', onMapPinEnter);
+
+var roomsNumber = document.querySelector('#room_number');
+var guestsNumber = document.querySelector('#capacity');
+
+var checkRoomsGuests = function () {
+  var rooms = Number(roomsNumber.value);
+  var guests = Number(guestsNumber.value);
+  if (rooms >= guests) {
+    roomsNumber.setCustomValidity('');
+  } else {
+    roomsNumber.setCustomValidity('Для ' + guests + ' гостей, необходимо ' + rooms + ' и более комнат');
+  }
+};
+
+roomsNumber.addEventListener('change', function () {
+  checkRoomsGuests();
+});
+
+guestsNumber.addEventListener('change', function () {
+  checkRoomsGuests();
+});
 
 /*
 var renderCard = function (advert) {
