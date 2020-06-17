@@ -45,6 +45,13 @@ var APPARTMENT_FEATURES = [
   'conditioner'
 ];
 
+var DISABLED_ROOMS = {
+  '1': ['1'],
+  '2': ['1', '2'],
+  '3': ['1', '2', '3'],
+  '100': ['0']
+};
+
 var APPARTMENT_PICTURES = [
   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
@@ -255,30 +262,20 @@ mapPinMain.addEventListener('keydown', onMapPinEnter);
 var roomsNumber = document.querySelector('#room_number');
 var guestsNumber = document.querySelector('#capacity');
 
-var checkRoomsGuests = function () {
-  var rooms = Number(roomsNumber.value);
-  var guests = Number(guestsNumber.value);
-  if (rooms === 100 || guests === 0) {
-    if (rooms !== 100 || guests !== 0) {
-      roomsNumber.setCustomValidity('100 комнат должно быть не для гостей');
-    } else {
-      roomsNumber.setCustomValidity('');
-    }
-  } else {
-    if (rooms >= guests) {
-      roomsNumber.setCustomValidity('');
-    } else {
-      roomsNumber.setCustomValidity('Для ' + guests + ' гостей, необходимо ' + rooms + ' и более комнат');
-    }
-  }
-};
-
 roomsNumber.addEventListener('change', function () {
-  checkRoomsGuests();
+  for (var j = 0; j < guestsNumber.options.length; j++) {
+    guestsNumber[j].disabled = !DISABLED_ROOMS[roomsNumber.value].includes(guestsNumber.options[j].value);
+  }
 });
 
-guestsNumber.addEventListener('change', function () {
-  checkRoomsGuests();
+var submitButton = document.querySelector('.ad-form__submit');
+
+submitButton.addEventListener('click', function () {
+  if (!DISABLED_ROOMS[roomsNumber.value].includes(guestsNumber.value)) {
+    guestsNumber.setCustomValidity('Выбрано некорректное количество мест');
+  } else {
+    guestsNumber.setCustomValidity('');
+  }
 });
 
 /*
