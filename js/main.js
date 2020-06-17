@@ -57,10 +57,10 @@ var APPARTMENT_PICTURES = [
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
 ];
-/*
+
 var PIN_SHIFT_X = 25;
 var PIN_SHIFT_Y = 70;
-*/
+
 var MAP_PIN_DEFAULT_X = 570;
 var MAP_PIN_DEFAULT_Y = 375;
 var MAP_PIN_WIDTH = 62;
@@ -151,10 +151,7 @@ var changeInputs = function (inputClass, isDisabled) {
 changeInputs('fieldset', true);
 changeInputs('.map__filter', true);
 
-// generateFragment();
-/*
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
 
 var renderAdverts = function (advert) {
   var mapPin = mapPinTemplate.cloneNode(true);
@@ -164,9 +161,8 @@ var renderAdverts = function (advert) {
   mapPin.querySelector('img').alt = advert.offer.title;
   return mapPin;
 };
-/*
-var fragment = document.createDocumentFragment();
 
+var fragment = document.createDocumentFragment();
 
 var generateFragment = function () {
   for (var i = 0; i < mainArray.length; i++) {
@@ -174,8 +170,12 @@ var generateFragment = function () {
   }
 };
 
-document.querySelector('.map__pins').appendChild(fragment);
+var createSimilar = function () {
+  generateFragment();
+  document.querySelector('.map__pins').appendChild(fragment);
+};
 
+/*
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
 var renderFeatures = function (features, card) {
@@ -230,6 +230,7 @@ var activateMap = function () {
   document.querySelector('.ad-form').classList.remove('ad-form--disabled');
   changeInputs('fieldset', false);
   changeInputs('.map__filter', false);
+  createSimilar();
 };
 
 var mapPinMain = document.querySelector('.map__pin--main');
