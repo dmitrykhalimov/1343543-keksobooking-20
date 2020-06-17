@@ -22,13 +22,13 @@ var APPARTMENT_TYPE = [
   'house',
   'bungalo'
 ];
-/*
+
 var TYPE_FLAT = {
   'palace': 'Дворец',
   'flat': 'Квартира',
   'house': 'Дом',
   'bungalo': 'Бунгало'
-};*/
+};
 
 var APPARTMENT_TIME = [
   '12:00',
@@ -231,7 +231,11 @@ var activateMap = function () {
   changeInputs('fieldset', false);
   changeInputs('.map__filter', false);
   createSimilar();
+  console.log('Сиськи');
+  addPinListeners();
+
 };
+
 
 var mapPinMain = document.querySelector('.map__pin--main');
 
@@ -297,6 +301,42 @@ var renderCard = function (advert) {
 
   return card;
 };
+
+var addPinListeners = function () {
+  var similarPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+  for (var i = 0; i < similarPins.length; i++) {
+    onSimilarPinClick(similarPins[i], i);
+  }
+};
+
+var onSimilarPinClick = function (similarPin, numberCard) {
+  similarPin.addEventListener('click', function () {
+    var fragmentCard = document.createDocumentFragment();
+    fragmentCard.appendChild(renderCard(mainArray[numberCard]));
+    document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
+  });
+};
+
+/*
+
+// var similarPins = document.querySelectorAll('.map__pin');
+var addPinListeners = function () {
+
+//  for (var i = 1; i < similarPins.length; i++) {
+//    onSimilarPinClick(similarPins[i]);
+//  }
+};
+/*
+var addPinListeners = function () {
+  for (var i = 1; i < similarPins.length; i++) {
+    similarPins[i].addEventListener('click', function () {
+      console.log(i);
+      console.log(similarPins[i]);
+    });
+  }
+};
+
+*/
 /*
 var fragmentCard = document.createDocumentFragment();
 fragmentCard.appendChild(renderCard(mainArray[0]));
