@@ -175,7 +175,7 @@ var createSimilar = function () {
   document.querySelector('.map__pins').appendChild(fragment);
 };
 
-/*
+
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
 var renderFeatures = function (features, card) {
@@ -224,7 +224,7 @@ var generateCapacityString = function (rooms, guests) {
 
   return capacityString;
 };
-*/
+
 var activateMap = function () {
   document.querySelector('.map').classList.remove('map--faded');
   document.querySelector('.ad-form').classList.remove('ad-form--disabled');
@@ -279,7 +279,7 @@ submitButton.addEventListener('click', function () {
   }
 });
 
-/*
+
 var renderCard = function (advert) {
   var card = cardTemplate.cloneNode(true);
 
@@ -297,7 +297,7 @@ var renderCard = function (advert) {
 
   return card;
 };
-
+/*
 var fragmentCard = document.createDocumentFragment();
 fragmentCard.appendChild(renderCard(mainArray[0]));
 
