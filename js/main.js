@@ -54,8 +54,12 @@ var APPARTMENT_PICTURES = [
 var PIN_SHIFT_X = 25;
 var PIN_SHIFT_Y = 70;
 */
-var MAP_PIN_DEFAULT_X = 602;
-var MAP_PIN_DEFAULT_Y = 407;
+var MAP_PIN_DEFAULT_X = 570;
+var MAP_PIN_DEFAULT_Y = 375;
+var MAP_PIN_WIDTH = 62;
+var MAP_PIN_HEIGHT = 62;
+var MAP_PIN_TICK_HEIGHT = 22;
+var MAP_PIN_TICK_TOP_SHIFT = -5;
 
 var mainArray = [];
 
@@ -233,7 +237,7 @@ var onMapPinEnter = function (evt) {
 var onMapPinClick = function (evt) {
   if (evt.button === 0) {
     activateMap();
-    placeMapAddress(30, 10);
+    placeMapAddress(MAP_PIN_WIDTH / 2, MAP_PIN_HEIGHT + MAP_PIN_TICK_HEIGHT + MAP_PIN_TICK_TOP_SHIFT);
     mapPinMain.removeEventListener('mousedown', onMapPinClick);
   }
 };
@@ -243,7 +247,7 @@ var placeMapAddress = function (shiftX, shiftY) {
   fieldAddress.value = (MAP_PIN_DEFAULT_X + shiftX) + ', ' + (MAP_PIN_DEFAULT_Y + shiftY);
 };
 
-placeMapAddress(0, 0);
+placeMapAddress(MAP_PIN_WIDTH / 2, MAP_PIN_HEIGHT / 2);
 
 mapPinMain.addEventListener('mousedown', onMapPinClick);
 mapPinMain.addEventListener('keydown', onMapPinEnter);
