@@ -22,13 +22,13 @@ var APPARTMENT_TYPE = [
   'house',
   'bungalo'
 ];
-
+/*
 var TYPE_FLAT = {
   'palace': 'Дворец',
   'flat': 'Квартира',
   'house': 'Дом',
   'bungalo': 'Бунгало'
-};
+};*/
 
 var APPARTMENT_TIME = [
   '12:00',
@@ -45,6 +45,13 @@ var APPARTMENT_FEATURES = [
   'conditioner'
 ];
 
+var DISABLED_ROOMS = {
+  '1': ['1'],
+  '2': ['1', '2'],
+  '3': ['1', '2', '3'],
+  '100': ['0']
+};
+
 var APPARTMENT_PICTURES = [
   'http://o0.github.io/assets/images/tokyo/hotel1.jpg',
   'http://o0.github.io/assets/images/tokyo/hotel2.jpg',
@@ -53,6 +60,13 @@ var APPARTMENT_PICTURES = [
 
 var PIN_SHIFT_X = 25;
 var PIN_SHIFT_Y = 70;
+
+var MAP_PIN_DEFAULT_X = 570;
+var MAP_PIN_DEFAULT_Y = 375;
+var MAP_PIN_WIDTH = 62;
+var MAP_PIN_HEIGHT = 62;
+var MAP_PIN_TICK_HEIGHT = 22;
+var MAP_PIN_TICK_TOP_SHIFT = -5;
 
 var mainArray = [];
 
@@ -127,7 +141,16 @@ var createPoint = function (index) {
 
 fillArray();
 
-document.querySelector('.map').classList.remove('map--faded');
+var changeInputs = function (inputClass, isDisabled) {
+  var inputs = document.querySelectorAll(inputClass);
+  for (var i = 0; i < inputs.length; i++) {
+    inputs[i].disabled = isDisabled;
+  }
+};
+
+changeInputs('fieldset', true);
+changeInputs('.map__filter', true);
+
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
 var renderAdverts = function (advert) {
@@ -147,10 +170,12 @@ var generateFragment = function () {
   }
 };
 
-generateFragment();
+var createSimilar = function () {
+  generateFragment();
+  document.querySelector('.map__pins').appendChild(fragment);
+};
 
-document.querySelector('.map__pins').appendChild(fragment);
-
+/*
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
 var renderFeatures = function (features, card) {
@@ -199,7 +224,62 @@ var generateCapacityString = function (rooms, guests) {
 
   return capacityString;
 };
+*/
+var activateMap = function () {
+  document.querySelector('.map').classList.remove('map--faded');
+  document.querySelector('.ad-form').classList.remove('ad-form--disabled');
+  changeInputs('fieldset', false);
+  changeInputs('.map__filter', false);
+  createSimilar();
+};
 
+var mapPinMain = document.querySelector('.map__pin--main');
+
+var onMapPinEnter = function (evt) {
+  if (evt.key === 'Enter') {
+    activateMap();
+    mapPinMain.removeEventListener('keydown', onMapPinEnter);
+  }
+};
+
+var onMapPinClick = function (evt) {
+  if (evt.button === 0) {
+    activateMap();
+    placeMapAddress(MAP_PIN_WIDTH / 2, MAP_PIN_HEIGHT + MAP_PIN_TICK_HEIGHT + MAP_PIN_TICK_TOP_SHIFT);
+    mapPinMain.removeEventListener('mousedown', onMapPinClick);
+  }
+};
+
+var placeMapAddress = function (shiftX, shiftY) {
+  var fieldAddress = document.querySelector('#address');
+  fieldAddress.value = (MAP_PIN_DEFAULT_X + shiftX) + ', ' + (MAP_PIN_DEFAULT_Y + shiftY);
+};
+
+placeMapAddress(MAP_PIN_WIDTH / 2, MAP_PIN_HEIGHT / 2);
+
+mapPinMain.addEventListener('mousedown', onMapPinClick);
+mapPinMain.addEventListener('keydown', onMapPinEnter);
+
+var roomsNumber = document.querySelector('#room_number');
+var guestsNumber = document.querySelector('#capacity');
+
+roomsNumber.addEventListener('change', function () {
+  for (var j = 0; j < guestsNumber.options.length; j++) {
+    guestsNumber[j].disabled = !DISABLED_ROOMS[roomsNumber.value].includes(guestsNumber.options[j].value);
+  }
+});
+
+var submitButton = document.querySelector('.ad-form__submit');
+
+submitButton.addEventListener('click', function () {
+  if (!DISABLED_ROOMS[roomsNumber.value].includes(guestsNumber.value)) {
+    guestsNumber.setCustomValidity('Выбрано некорректное количество мест');
+  } else {
+    guestsNumber.setCustomValidity('');
+  }
+});
+
+/*
 var renderCard = function (advert) {
   var card = cardTemplate.cloneNode(true);
 
@@ -222,3 +302,4 @@ var fragmentCard = document.createDocumentFragment();
 fragmentCard.appendChild(renderCard(mainArray[0]));
 
 document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
+*/
