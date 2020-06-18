@@ -160,12 +160,15 @@ changeInputs('.map__filter', true);
 
 var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
-var renderAdverts = function (advert) {
+var renderAdvert = function (advert, numberCard) {
   var mapPin = mapPinTemplate.cloneNode(true);
   mapPin.style.left = Number(advert.location.x - PIN_SHIFT_X) + 'px';
   mapPin.style.top = Number(advert.location.y - PIN_SHIFT_Y) + 'px';
   mapPin.querySelector('img').src = advert.author.avatar;
   mapPin.querySelector('img').alt = advert.offer.title;
+  mapPin.addEventListener('click', function () {
+    placeCard(numberCard);
+  });
   return mapPin;
 };
 
@@ -173,7 +176,7 @@ var fragment = document.createDocumentFragment();
 
 var generateFragment = function () {
   for (var i = 0; i < mainArray.length; i++) {
-    fragment.appendChild(renderAdverts(mainArray[i]));
+    fragment.appendChild(renderAdvert(mainArray[i], i));
   }
 };
 
@@ -181,7 +184,6 @@ var createSimilar = function () {
   generateFragment();
   document.querySelector('.map__pins').appendChild(fragment);
 };
-
 
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
@@ -238,9 +240,7 @@ var activateMap = function () {
   changeInputs('fieldset', false);
   changeInputs('.map__filter', false);
   createSimilar();
-  addPinListeners();
 };
-
 
 var mapPinMain = document.querySelector('.map__pin--main');
 
@@ -305,22 +305,9 @@ var renderCard = function (advert) {
 
   return card;
 };
-// добавляем событие на каждую отрисованную точку
-var addPinListeners = function () {
-  var similarPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-  for (var i = 0; i < similarPins.length; i++) {
-    onSimilarPinClick(similarPins[i], i);
-  }
-};
-// функция-замыкание
-var onSimilarPinClick = function (similarPin, numberCard) {
-  similarPin.addEventListener('click', function () {
-    placeCard(numberCard);
-  });
-};
-// отрисовываем карточку
+
 var placeCard = function (numberCard) {
-  if (document.querySelector('.popup')) { // если окна нет удаляем карточку
+  if (document.querySelector('.popup')) {
     closeCard();
   }
 
@@ -332,7 +319,6 @@ var placeCard = function (numberCard) {
   document.querySelector('.popup__close').addEventListener('click', onCardCloseClick);
 };
 
-// функция удаления карточки, заодно удаляем eventlisteners
 var closeCard = function () {
   document.querySelector('.popup').remove();
   document.removeEventListener('keydown', onCardEsc);
@@ -374,3 +360,5 @@ var onTimeOutChange = function () {
 
 timeIn.addEventListener('change', onTimeInChange);
 timeOut.addEventListener('change', onTimeOutChange);
+
+
