@@ -30,6 +30,13 @@ var TYPE_FLAT = {
   'bungalo': 'Бунгало'
 };
 
+var TYPE_FLAT_MIN_VALUE = {
+  'palace': 10000,
+  'flat': 1000,
+  'house': 5000,
+  'bungalo': 0
+};
+
 var APPARTMENT_TIME = [
   '12:00',
   '13:00',
@@ -298,22 +305,22 @@ var renderCard = function (advert) {
 
   return card;
 };
-
+// добавляем событие на каждую отрисованную точку
 var addPinListeners = function () {
   var similarPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
   for (var i = 0; i < similarPins.length; i++) {
     onSimilarPinClick(similarPins[i], i);
   }
 };
-
+// функция-замыкание
 var onSimilarPinClick = function (similarPin, numberCard) {
   similarPin.addEventListener('click', function () {
     placeCard(numberCard);
   });
 };
-
+// отрисовываем карточку
 var placeCard = function (numberCard) {
-  if (document.querySelector('.popup')) {
+  if (document.querySelector('.popup')) { // если окна нет удаляем карточку
     closeCard();
   }
 
@@ -325,6 +332,7 @@ var placeCard = function (numberCard) {
   document.querySelector('.popup__close').addEventListener('click', onCardCloseClick);
 };
 
+// функция удаления карточки, заодно удаляем eventlisteners
 var closeCard = function () {
   document.querySelector('.popup').remove();
   document.removeEventListener('keydown', onCardEsc);
@@ -342,6 +350,30 @@ var onCardCloseClick = function (evt) {
   evt.preventDefault();
   closeCard();
 };
+
+var typeFlatList = document.querySelector('#type');
+var priceInput = document.querySelector('#price');
+
+var onTypeFlatChange = function () {
+  priceInput.setAttribute('min', TYPE_FLAT_MIN_VALUE[typeFlatList.value]);
+  priceInput.setAttribute('placeholder', TYPE_FLAT_MIN_VALUE[typeFlatList.value]);
+};
+
+typeFlatList.addEventListener('change', onTypeFlatChange);
+
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
+
+var onTimeInChange = function () {
+  timeOut.value = timeIn.value;
+};
+
+var onTimeOutChange = function () {
+  timeIn.value = timeOut.value;
+};
+
+timeIn.addEventListener('change', onTimeInChange);
+timeOut.addEventListener('change', onTimeOutChange);
 /*
 
 // var similarPins = document.querySelectorAll('.map__pin');
