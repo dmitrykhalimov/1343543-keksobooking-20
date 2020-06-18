@@ -374,29 +374,3 @@ var onTimeOutChange = function () {
 
 timeIn.addEventListener('change', onTimeInChange);
 timeOut.addEventListener('change', onTimeOutChange);
-/*
-
-// var similarPins = document.querySelectorAll('.map__pin');
-var addPinListeners = function () {
-
-//  for (var i = 1; i < similarPins.length; i++) {
-//    onSimilarPinClick(similarPins[i]);
-//  }
-};
-/*
-var addPinListeners = function () {
-  for (var i = 1; i < similarPins.length; i++) {
-    similarPins[i].addEventListener('click', function () {
-      console.log(i);
-      console.log(similarPins[i]);
-    });
-  }
-};
-
-*/
-/*
-var fragmentCard = document.createDocumentFragment();
-fragmentCard.appendChild(renderCard(mainArray[0]));
-
-document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
-*/
