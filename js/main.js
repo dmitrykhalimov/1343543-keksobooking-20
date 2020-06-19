@@ -20,10 +20,10 @@ var DISABLED_ROOMS = {
   '3': ['1', '2', '3'],
   '100': ['0']
 };
-
+/*
 var PIN_SHIFT_X = 25;
 var PIN_SHIFT_Y = 70;
-
+*/
 var MAP_PIN_DEFAULT_X = 570;
 var MAP_PIN_DEFAULT_Y = 375;
 var MAP_PIN_WIDTH = 62;
@@ -43,8 +43,8 @@ var changeInputs = function (inputClass, isDisabled) {
 changeInputs('fieldset', true);
 changeInputs('.map__filter', true);
 
-var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
+/* var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+/*
 var renderAdvert = function (advert, numberCard) {
   var mapPin = mapPinTemplate.cloneNode(true);
   mapPin.style.left = Number(advert.location.x - PIN_SHIFT_X) + 'px';
@@ -57,19 +57,20 @@ var renderAdvert = function (advert, numberCard) {
   return mapPin;
 };
 
-var fragment = document.createDocumentFragment();
-
+/* var fragment = document.createDocumentFragment();
+/*
 var generateFragment = function () {
   for (var i = 0; i < window.mainArray.length; i++) {
     fragment.appendChild(renderAdvert(window.mainArray[i], i));
   }
 };
-
+*/
+/*
 var createSimilar = function () {
   generateFragment();
   document.querySelector('.map__pins').appendChild(fragment);
 };
-
+*/
 var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
 var renderFeatures = function (features, card) {
@@ -124,7 +125,7 @@ var activateMap = function () {
   document.querySelector('.ad-form').classList.remove('ad-form--disabled');
   changeInputs('fieldset', false);
   changeInputs('.map__filter', false);
-  createSimilar();
+  window.pin.createSimilar();
 };
 
 var mapPinMain = document.querySelector('.map__pin--main');
