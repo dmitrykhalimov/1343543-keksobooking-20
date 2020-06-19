@@ -30,6 +30,5 @@
       generateFragment();
       document.querySelector('.map__pins').appendChild(fragment);
     },
-    anode: 'catode',
   };
 })();

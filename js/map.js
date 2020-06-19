@@ -36,9 +36,6 @@
   mapPinMain.addEventListener('mousedown', onMapPinClick);
   mapPinMain.addEventListener('keydown', onMapPinEnter);
   window.map = {
-    createSimilar: function () {
-
-    },
     MAP_PIN_DEFAULT_X: MAP_PIN_DEFAULT_X,
     MAP_PIN_DEFAULT_Y: MAP_PIN_DEFAULT_Y,
     MAP_PIN_WIDTH: MAP_PIN_WIDTH,
