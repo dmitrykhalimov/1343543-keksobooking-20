@@ -13,9 +13,9 @@
     mapPin.style.top = Number(advert.location.y - PIN_SHIFT_Y) + 'px';
     mapPin.querySelector('img').src = advert.author.avatar;
     mapPin.querySelector('img').alt = advert.offer.title;
-    /* mapPin.addEventListener('click', function () {
-      placeCard(numberCard);
-    }); */
+    mapPin.addEventListener('click', function () {
+      window.placeCard.placeCard(numberCard);
+    });
     return mapPin;
   };
 
