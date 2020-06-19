@@ -1,10 +1,6 @@
 'use strict';
 
 (function () {
-  var MAP_PIN_DEFAULT_X = 570;
-  var MAP_PIN_DEFAULT_Y = 375;
-  var MAP_PIN_WIDTH = 62;
-  var MAP_PIN_HEIGHT = 62;
 
   var TYPE_FLAT_MIN_VALUE = {
     'palace': 10000,
@@ -62,9 +58,10 @@
   window.form = {
     placeMapAddress: function (shiftX, shiftY) {
       var fieldAddress = document.querySelector('#address');
-      fieldAddress.value = (MAP_PIN_DEFAULT_X + shiftX) + ', ' + (MAP_PIN_DEFAULT_Y + shiftY);
+      fieldAddress.value = (window.map.MAP_PIN_DEFAULT_X + shiftX) + ', ' + (window.map.MAP_PIN_DEFAULT_Y + shiftY);
     }
   };
 
-  window.form.placeMapAddress(MAP_PIN_WIDTH / 2, MAP_PIN_HEIGHT / 2);
+  window.form.placeMapAddress(window.map.MAP_PIN_WIDTH / 2, window.map.MAP_PIN_HEIGHT / 2);
+  window.utils.changeInputs('fieldset', true);
 })();

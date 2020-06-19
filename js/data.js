@@ -96,7 +96,9 @@
       for (var i = 0; i < ADS_QUANTITY; i++) {
         mainArray.push(createPoint(i));
       }
-    }
+    },
+    //mainArray: mainArray
   };
   window.mainArray = mainArray;
+  //window.data.fillArray();
 })();
