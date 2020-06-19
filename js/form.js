@@ -55,13 +55,16 @@
     }
   });
 
-  window.form = {
-    placeMapAddress: function (shiftX, shiftY) {
-      var fieldAddress = document.querySelector('#address');
-      fieldAddress.value = (window.map.MAP_PIN_DEFAULT_X + shiftX) + ', ' + (window.map.MAP_PIN_DEFAULT_Y + shiftY);
-    }
+  var placeMapAddress = function (shiftX, shiftY) {
+    var fieldAddress = document.querySelector('#address');
+    fieldAddress.value = (window.map.MAP_PIN_DEFAULT_X + shiftX) + ', ' + (window.map.MAP_PIN_DEFAULT_Y + shiftY);
   };
 
-  window.form.placeMapAddress(window.map.MAP_PIN_WIDTH / 2, window.map.MAP_PIN_HEIGHT / 2);
+  placeMapAddress(window.map.MAP_PIN_WIDTH / 2, window.map.MAP_PIN_HEIGHT / 2);
+
+  window.form = {
+    placeMapAddress: placeMapAddress
+  };
+
   window.utils.changeInputs('fieldset', true);
 })();

@@ -91,14 +91,17 @@
     return window.utils.mixArray(APPARTMENT_PICTURES);
   };
 
+  var fillArray = function () {
+    for (var i = 0; i < ADS_QUANTITY; i++) {
+      mainArray.push(createPoint(i));
+    }
+  };
+
+  fillArray();
+
   window.data = {
-    fillArray: function () {
-      for (var i = 0; i < ADS_QUANTITY; i++) {
-        mainArray.push(createPoint(i));
-      }
-    },
+
     mainArray: mainArray
   };
 
-  window.data.fillArray();
 })();
