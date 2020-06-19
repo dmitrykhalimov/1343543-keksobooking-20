@@ -97,8 +97,8 @@
         mainArray.push(createPoint(i));
       }
     },
-    //mainArray: mainArray
+    mainArray: mainArray
   };
-  window.mainArray = mainArray;
-  //window.data.fillArray();
+
+  window.data.fillArray();
 })();

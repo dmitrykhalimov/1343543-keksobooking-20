@@ -20,8 +20,8 @@
   };
 
   var generateFragment = function () {
-    for (var i = 0; i < window.mainArray.length; i++) {
-      fragment.appendChild(renderAdvert(window.mainArray[i], i));
+    for (var i = 0; i < window.data.mainArray.length; i++) {
+      fragment.appendChild(renderAdvert(window.data.mainArray[i], i));
     }
   };
 
