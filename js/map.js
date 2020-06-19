@@ -20,8 +20,16 @@
     if (evt.button === 0) {
       activateMap();
       window.form.placeMapAddress(MAP_PIN_WIDTH / 2, MAP_PIN_HEIGHT + MAP_PIN_TICK_HEIGHT + MAP_PIN_TICK_TOP_SHIFT);
-      mapPinMain.removeEventListener('mousedown', onMapPinClick);
+      //mapPinMain.removeEventListener('mousedown', onMapPinClick);
     }
+
+    var startCoords = {
+      x: evt.clientX,
+      y: evt.clientY
+    };
+
+    //console.log(startCoords.x);
+    //console.log(startCoords.y);
   };
 
   var onMapPinEnter = function (evt) {
