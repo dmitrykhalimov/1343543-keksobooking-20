@@ -81,32 +81,13 @@ var generateAvatarLink = function (number) {
   return AVATAR_NAME_PREFIX + '0' + (number + 1) + AVATAR_NAME_POSTFIX;
 };
 
-var generateRandomNumber = function (min, max) {
-  var randomNumber = min + Math.random() * (max + 1 - min);
-  return Math.floor(randomNumber);
-};
-
-var mixArray = function (arr) {
-  var j;
-  var temp;
-  var sortedArray = arr.slice();
-
-  for (var i = sortedArray.length - 1; i > 0; i--) {
-    j = Math.floor(Math.random() * (i + 1));
-    temp = sortedArray[j];
-    sortedArray[j] = sortedArray[i];
-    sortedArray[i] = temp;
-  }
-  return sortedArray;
-};
-
 var generatePictures = function () {
-  return mixArray(APPARTMENT_PICTURES);
+  return window.utils.mixArray(APPARTMENT_PICTURES);
 };
 
 var generateFeatures = function () {
-  var outputArray = mixArray(APPARTMENT_FEATURES);
-  var numberFeatures = generateRandomNumber(1, APPARTMENT_FEATURES.length - 1);
+  var outputArray = window.utils.mixArray(APPARTMENT_FEATURES);
+  var numberFeatures = window.utils.generateRandomNumber(1, APPARTMENT_FEATURES.length - 1);
 
   while (outputArray.length > numberFeatures) {
     outputArray.pop();
@@ -122,8 +103,8 @@ var fillArray = function () {
 
 var createPoint = function (index) {
   var location = {
-    x: generateRandomNumber(0, 1200),
-    y: generateRandomNumber(130, 630)
+    x: window.utils.generateRandomNumber(0, 1200),
+    y: window.utils.generateRandomNumber(130, 630)
   };
   return {
     author: {
@@ -132,12 +113,12 @@ var createPoint = function (index) {
     offer: {
       title: TITLE[index],
       address: location.x + ', ' + location.y,
-      price: generateRandomNumber(1000, 100000),
-      type: APPARTMENT_TYPE[generateRandomNumber(0, 3)],
-      rooms: generateRandomNumber(1, 5),
-      guests: generateRandomNumber(1, 8),
-      checkin: APPARTMENT_TIME[generateRandomNumber(0, 2)],
-      checkout: APPARTMENT_TIME[generateRandomNumber(0, 2)],
+      price: window.utils.generateRandomNumber(1000, 100000),
+      type: APPARTMENT_TYPE[window.utils.generateRandomNumber(0, 3)],
+      rooms: window.utils.generateRandomNumber(1, 5),
+      guests: window.utils.generateRandomNumber(1, 8),
+      checkin: APPARTMENT_TIME[window.utils.generateRandomNumber(0, 2)],
+      checkout: APPARTMENT_TIME[window.utils.generateRandomNumber(0, 2)],
       features: generateFeatures(),
       description: '',
       pictures: generatePictures()
