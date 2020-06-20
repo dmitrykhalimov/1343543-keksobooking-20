@@ -11,9 +11,6 @@
   var mainPinX = MAP_PIN_DEFAULT_X + MAP_PIN_WIDTH / 2;
   var mainPinY = MAP_PIN_DEFAULT_Y + MAP_PIN_HEIGHT + MAP_PIN_TICK_HEIGHT + MAP_PIN_TICK_TOP_SHIFT;
 
-  var currentX = mainPinX;
-  var currentY = mainPinY;
-
   var mapPinMain = document.querySelector('.map__pin--main');
 
   var activateMap = function () {
