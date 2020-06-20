@@ -86,6 +86,8 @@
 
       window.form.updateMapAddress(currentX, currentY);
 
+      mainPinX = mainPinX + (finishCoords.x - startCoords.x);
+      mainPinY = mainPinY + (finishCoords.y - startCoords.y);
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
     };
