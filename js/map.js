@@ -18,6 +18,9 @@
     window.pin.createSimilar();
   };
 
+  //console.log('Старт!');
+  //console.log(mapPinMain.style.top);
+  //console.log(mapPinMain.style.left);
   var isFirstActivation = true;
 
   var mainPinX = MAP_PIN_DEFAULT_X + MAP_PIN_WIDTH / 2;
@@ -27,6 +30,9 @@
     if (evt.button === 0 && isFirstActivation) {
       activateMap();
       window.form.updateMapAddress(mainPinX, mainPinY);
+      console.log('Старт');
+      console.log(mainPinX);
+      console.log(mainPinY);
       isFirstActivation = false;
     }
 
@@ -35,7 +41,7 @@
       y: evt.clientY
     };
 
-    var startCoordsToKeep = {
+    var finishCoords = {
       x: evt.clientX,
       y: evt.clientY
     };
@@ -44,27 +50,47 @@
       moveEvt.preventDefault();
 
       var shift = {
-        x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - moveEvt.clientY
+        x: finishCoords.x - moveEvt.clientX,
+        y: finishCoords.y - moveEvt.clientY
       };
 
-      startCoords = {
+      finishCoords = {
         x: moveEvt.clientX,
         y: moveEvt.clientY
       };
 
-      window.form.updateMapAddress(mainPinX + (startCoords.x - startCoordsToKeep.x), mainPinY + (startCoords.y - startCoordsToKeep.y));
+      var currentX = mainPinX + (finishCoords.x - startCoords.x);
+      var currentY = mainPinY + (finishCoords.y - startCoords.y);
+
+      if (currentY < 130 || currentY > 630) {
+        mapPinMain.style.top = MAP_PIN_DEFAULT_Y + 'px';
+        mapPinMain.style.left = MAP_PIN_DEFAULT_X + 'px';
+        mainPinX = MAP_PIN_DEFAULT_X + MAP_PIN_WIDTH / 2;
+        mainPinY = MAP_PIN_DEFAULT_Y + MAP_PIN_HEIGHT + MAP_PIN_TICK_HEIGHT + MAP_PIN_TICK_TOP_SHIFT;
+        console.log('Бздыщ!');
+        console.log(mainPinX);
+        console.log(mainPinY);
+        window.form.updateMapAddress(mainPinX, mainPinY);
+        currentX = mainPinX;
+        currentY = mainPinY;
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+      }
+
+      window.form.updateMapAddress(currentX, currentY);
       mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
       mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+
+      console.log('currentY: ' + currentY, 'currentPos: ' + mapPinMain.style.top);
     };
 
     var onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
-      window.form.updateMapAddress(mainPinX + (startCoords.x - startCoordsToKeep.x), mainPinY + (startCoords.y - startCoordsToKeep.y));
+      window.form.updateMapAddress(mainPinX + (finishCoords.x - startCoords.x), mainPinY + (finishCoords.y - startCoords.y));
 
-      mainPinX = mainPinX + (startCoords.x - startCoordsToKeep.x);
-      mainPinY = mainPinY + (startCoords.y - startCoordsToKeep.y);
+      mainPinX = mainPinX + (finishCoords.x - startCoords.x);
+      mainPinY = mainPinY + (finishCoords.y - startCoords.y);
 
       document.removeEventListener('mousemove', onMouseMove);
       document.removeEventListener('mouseup', onMouseUp);
