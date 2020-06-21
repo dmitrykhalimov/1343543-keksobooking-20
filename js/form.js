@@ -55,15 +55,15 @@
     }
   });
 
-  var placeMapAddress = function (shiftX, shiftY) {
+  var updateMapAddress = function (valueX, valueY) {
     var fieldAddress = document.querySelector('#address');
-    fieldAddress.value = (window.map.MAP_PIN_DEFAULT_X + shiftX) + ', ' + (window.map.MAP_PIN_DEFAULT_Y + shiftY);
+    fieldAddress.value = ((valueX + ', ' + valueY));
   };
 
-  placeMapAddress(window.map.MAP_PIN_WIDTH / 2, window.map.MAP_PIN_HEIGHT / 2);
+  updateMapAddress(window.map.MAP_PIN_DEFAULT_X + window.map.MAP_PIN_WIDTH / 2, window.map.MAP_PIN_DEFAULT_Y + window.map.MAP_PIN_HEIGHT / 2);
 
   window.form = {
-    placeMapAddress: placeMapAddress
+    updateMapAddress: updateMapAddress
   };
 
   window.utils.changeInputs('fieldset', true);
