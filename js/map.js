@@ -8,6 +8,13 @@
   var MAP_PIN_TICK_HEIGHT = 22;
   var MAP_PIN_TICK_TOP_SHIFT = -5;
 
+  var MAP_PIN_LIMITS = {
+    leftX: 0,
+    rightX: 1200,
+    topY: 130,
+    bottomY: 630
+  };
+
   var mainPinX = MAP_PIN_DEFAULT_X + MAP_PIN_WIDTH / 2;
   var mainPinY = MAP_PIN_DEFAULT_Y + MAP_PIN_HEIGHT + MAP_PIN_TICK_HEIGHT + MAP_PIN_TICK_TOP_SHIFT;
 
@@ -22,10 +29,20 @@
   };
 
   var reinitalizePositions = function () {
-    mapPinMain.style.top = MAP_PIN_DEFAULT_Y + 'px';
-    mapPinMain.style.left = MAP_PIN_DEFAULT_X + 'px';
-    mainPinX = MAP_PIN_DEFAULT_X + MAP_PIN_WIDTH / 2;
-    mainPinY = MAP_PIN_DEFAULT_Y + MAP_PIN_HEIGHT + MAP_PIN_TICK_HEIGHT + MAP_PIN_TICK_TOP_SHIFT;
+    if (mainPinY < MAP_PIN_LIMITS.topY) {
+      mapPinMain.style.top = MAP_PIN_LIMITS.topY - MAP_PIN_HEIGHT - MAP_PIN_TICK_HEIGHT - MAP_PIN_TICK_TOP_SHIFT + 'px';
+      mainPinY = MAP_PIN_LIMITS.topY;
+    } else if (mainPinY > MAP_PIN_LIMITS.bottomY) {
+      mapPinMain.style.top = MAP_PIN_LIMITS.bottomY - MAP_PIN_HEIGHT - MAP_PIN_TICK_HEIGHT - MAP_PIN_TICK_TOP_SHIFT + 'px';
+      mainPinY = MAP_PIN_LIMITS.bottomY;
+    }
+    if (mainPinX < MAP_PIN_LIMITS.leftX) {
+      mainPinX = MAP_PIN_LIMITS.leftX;
+      mapPinMain.style.left = MAP_PIN_LIMITS.leftX - MAP_PIN_WIDTH / 2 + 'px';
+    } else if (mainPinX > MAP_PIN_LIMITS.rightX) {
+      mainPinX = MAP_PIN_LIMITS.rightX;
+      mapPinMain.style.left = MAP_PIN_LIMITS.rightX - MAP_PIN_WIDTH / 2 + 'px';
+    }
   };
 
   var isFirstActivation = true;
@@ -59,8 +76,8 @@
       mainPinY = mainPinY - shift.y;
 
       if (mainPinY < 130 || mainPinY > 630 || mainPinX < 0 || mainPinX > 1200) {
-        reinitalizePositions();
         document.removeEventListener('mousemove', onMouseMove);
+        reinitalizePositions();
         document.removeEventListener('mouseup', onMouseUp);
       } else {
         mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
