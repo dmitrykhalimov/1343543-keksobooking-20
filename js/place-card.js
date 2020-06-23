@@ -26,7 +26,8 @@
       }
 
       var fragmentCard = document.createDocumentFragment();
-      fragmentCard.appendChild(window.renderCard.createCard(window.data.mainArray[numberCard]));
+      console.log(window.pin.mainArray[numberCard]);
+      fragmentCard.appendChild(window.renderCard.createCard(window.pin.mainArray[numberCard]));
       document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
 
       document.addEventListener('keydown', onCardEsc);
