@@ -97,7 +97,7 @@
 
   var fullReset = function () {
     formAdvert.reset();
-    window.map.deactivateMap();
+    window.map.changeMapStatus('deactivate');
     window.pin.removeSimilar();
     window.pin.reloadData();
   };
@@ -115,7 +115,6 @@
   var onError = function () {
     createPopup('error');
   };
-
 
   var onFormSubmit = function (evt) {
     window.backend.sendLoadData('POST', 'https://javascript.pages.academy/keksobooking', onSend, onError, new FormData(formAdvert));
