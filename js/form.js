@@ -15,7 +15,8 @@
     '3': ['1', '2', '3'],
     '100': ['0']
   };
-
+  document.querySelector('#title').value = 'dsafsdfksadjhfasdjlfhasdkljfhasdlkjfhasdkfjhasdf';
+  document.querySelector('#price').value = '9000';
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
   var typeFlatList = document.querySelector('#type');
@@ -28,11 +29,6 @@
   var onTimeInChange = function () {
     timeOut.value = timeIn.value;
   };
-
-  var resetDefaults = function () {
-  };
-
-  resetButton.addEventListener('click', resetDefaults);
 
   var onTimeOutChange = function () {
     timeIn.value = timeOut.value;
@@ -68,11 +64,37 @@
 
   updateMapAddress(window.map.MAP_PIN_DEFAULT_X + window.map.MAP_PIN_WIDTH / 2, window.map.MAP_PIN_DEFAULT_Y + window.map.MAP_PIN_HEIGHT / 2);
 
+  var successTemplate = document.querySelector('#success').content.querySelector('.success');
+
   var onSend = function () {
+    var successPopup = successTemplate.cloneNode(true);
+
+    successPopup.addEventListener('click', onSuccessWindowClick);
+    document.addEventListener('keydown', onSuccessWindowEsc);
+
+    window.drawPopups.openPopup(successPopup);
+
     resetButton.click();
     window.map.deactivateMap();
     window.pin.removeSimilar();
     window.pin.reloadData();
+  };
+
+  var onSuccessWindowClick = function () {
+    closeSuccessWindow();
+  };
+
+  var onSuccessWindowEsc = function (evt) {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      closeSuccessWindow();
+    }
+  };
+
+  var closeSuccessWindow = function () {
+    document.querySelector('.success').removeEventListener('click', onSuccessWindowClick);
+    document.removeEventListener('keydown', onSuccessWindowEsc);
+    window.drawPopups.closePopup(document.querySelector('.success'));
   };
 
   var formAdvert = document.querySelector('.ad-form');
