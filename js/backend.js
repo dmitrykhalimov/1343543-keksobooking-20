@@ -14,14 +14,14 @@
     document.body.insertAdjacentElement('afterbegin', node);
 
     var picture = document.createElement('img');
-    picture.src = '../img/on-error.png';
+    picture.src = 'img/on-error.png';
     picture.style = 'left: 10px; top: 10px; width: 150px; position: absolute';
 
     node = document.querySelector('.message__error');
     node.appendChild(picture);
   };
 
-  var serverQuery = function (method, link, onLoad) {
+  var sendLoadData = function (method, link, onLoad) {
     var URL = link;
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -44,6 +44,6 @@
   };
 
   window.backend = {
-    serverQuery: serverQuery
+    sendLoadData: sendLoadData
   };
 })();

@@ -26,7 +26,7 @@
     }
   };
 
-  window.backend.serverQuery('GET', 'https://javascript.pages.academy/keksobooking/data', loadData);
+  window.backend.sendLoadData('GET', 'https://javascript.pages.academy/keksobooking/data', loadData);
 
   window.pin = {
     createSimilar: function () {
