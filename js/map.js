@@ -28,6 +28,22 @@
     window.pin.createSimilar();
   };
 
+  var deactivateMap = function () {
+    document.querySelector('.map').classList.add('map--faded');
+    document.querySelector('.ad-form').classList.add('ad-form--disabled');
+    window.utils.changeInputs('fieldset', true);
+    window.utils.changeInputs('.map__filter', true);
+
+    isFirstActivation = true;
+
+    mapPinMain.style.left = MAP_PIN_DEFAULT_X + 'px';
+    mapPinMain.style.top = MAP_PIN_DEFAULT_Y + 'px';
+    mainPinX = MAP_PIN_DEFAULT_X + MAP_PIN_WIDTH / 2;
+    mainPinY = MAP_PIN_DEFAULT_Y + MAP_PIN_HEIGHT / 2;
+    window.form.updateMapAddress(mainPinX, mainPinY);
+    mainPinY = MAP_PIN_DEFAULT_Y + MAP_PIN_HEIGHT + MAP_PIN_TICK_HEIGHT + MAP_PIN_TICK_TOP_SHIFT;
+  };
+
   var reinitalizePositions = function () {
     if (mainPinY < MAP_PIN_LIMITS.topY) {
       mapPinMain.style.top = MAP_PIN_LIMITS.topY - MAP_PIN_HEIGHT - MAP_PIN_TICK_HEIGHT - MAP_PIN_TICK_TOP_SHIFT + 'px';
@@ -112,6 +128,7 @@
     MAP_PIN_DEFAULT_Y: MAP_PIN_DEFAULT_Y,
     MAP_PIN_WIDTH: MAP_PIN_WIDTH,
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,
+    deactivateMap: deactivateMap
   };
 
   window.utils.changeInputs('.map__filter', true);

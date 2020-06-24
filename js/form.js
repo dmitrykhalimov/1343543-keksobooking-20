@@ -63,6 +63,9 @@
   updateMapAddress(window.map.MAP_PIN_DEFAULT_X + window.map.MAP_PIN_WIDTH / 2, window.map.MAP_PIN_DEFAULT_Y + window.map.MAP_PIN_HEIGHT / 2);
 
   var onSend = function () {
+    window.map.deactivateMap();
+    window.pin.removeSimilar();
+    window.pin.reloadData();
   };
 
   var formAdvert = document.querySelector('.ad-form');
