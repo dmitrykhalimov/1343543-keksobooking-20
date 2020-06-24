@@ -71,7 +71,7 @@
       card.querySelector('.popup__avatar').src = advert.author.avatar;
 
       renderFeatures(advert.offer.features, card);
-      renderPictures(advert.offer.pictures, card);
+      renderPictures(advert.offer.photos, card);
 
       return card;
     }

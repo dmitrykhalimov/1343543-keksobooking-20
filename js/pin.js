@@ -18,17 +18,20 @@
     });
     return mapPin;
   };
-
-  var generateFragment = function () {
-    for (var i = 0; i < window.data.mainArray.length; i++) {
-      fragment.appendChild(renderAdvert(window.data.mainArray[i], i));
+  var mainArray = [];
+  var loadData = function (receivedData) {
+    for (var i = 0; i < receivedData.length; i++) {
+      mainArray.push(receivedData[i]);
+      fragment.appendChild(renderAdvert(mainArray[i], i));
     }
   };
 
+  window.backend.sendLoadData('GET', 'https://javascript.pages.academy/keksobooking/data', loadData);
+
   window.pin = {
     createSimilar: function () {
-      generateFragment();
       document.querySelector('.map__pins').appendChild(fragment);
     },
+    mainArray: mainArray
   };
 })();

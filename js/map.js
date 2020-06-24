@@ -76,9 +76,7 @@
       mainPinY = mainPinY - shift.y;
 
       if (mainPinY < 130 || mainPinY > 630 || mainPinX < 0 || mainPinX > 1200) {
-        document.removeEventListener('mousemove', onMouseMove);
         reinitalizePositions();
-        document.removeEventListener('mouseup', onMouseUp);
       } else {
         mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
         mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
