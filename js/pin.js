@@ -41,12 +41,14 @@
     }
   };
 
-  window.backend.serverQuery('GET', 'https://javascript.pages.academy/keksobooking/data', loadData);
+  var createSimilar = function () {
+    document.querySelector('.map__pins').appendChild(fragment);
+  };
+
+  window.backend.sendLoadData('GET', 'https://javascript.pages.academy/keksobooking/data', loadData, window.backend.drawError);
 
   window.pin = {
-    createSimilar: function () {
-      document.querySelector('.map__pins').appendChild(fragment);
-    },
+    createSimilar: createSimilar,
     removeSimilar: removeSimilar,
     mainArray: mainArray,
     reloadData: reloadData

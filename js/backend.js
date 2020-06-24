@@ -14,14 +14,14 @@
     document.body.insertAdjacentElement('afterbegin', node);
 
     var picture = document.createElement('img');
-    picture.src = '../img/on-error.png';
+    picture.src = 'img/on-error.png';
     picture.style = 'left: 10px; top: 10px; width: 150px; position: absolute';
 
     node = document.querySelector('.message__error');
     node.appendChild(picture);
   };
 
-  var serverQuery = function (method, link, onLoad, data) {
+  var sendLoadData = function (method, link, onLoad, onError, data) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
@@ -29,12 +29,12 @@
       if (xhr.status === StatusCode.OK) {
         onLoad(xhr.response);
       } else {
-        drawError('Ошибка загрузки данных! Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError('Ошибка загрузки данных! Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
 
     xhr.addEventListener('error', function () {
-      drawError('Ошибка соединения!');
+      onError('Ошибка соединения!');
     });
 
     xhr.open(method, link);
@@ -42,6 +42,7 @@
   };
 
   window.backend = {
-    serverQuery: serverQuery
+    sendLoadData: sendLoadData,
+    drawError: drawError
   };
 })();

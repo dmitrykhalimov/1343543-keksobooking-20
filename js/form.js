@@ -65,6 +65,32 @@
   updateMapAddress(window.map.MAP_PIN_DEFAULT_X + window.map.MAP_PIN_WIDTH / 2, window.map.MAP_PIN_DEFAULT_Y + window.map.MAP_PIN_HEIGHT / 2);
 
   var successTemplate = document.querySelector('#success').content.querySelector('.success');
+  var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+
+  var onError = function () {
+    var errorPopup = errorTemplate.cloneNode(true);
+
+    errorPopup.addEventListener('click', onErrorWindowClick);
+    document.addEventListener('keydown', onErrorWindowEsc);
+    window.drawPopups.openPopup(errorPopup);
+  };
+
+  var onErrorWindowClick = function () {
+    closeErrorWindow();
+  };
+
+  var closeErrorWindow = function () {
+    document.querySelector('.error').removeEventListener('click', onErrorWindowClick);
+    document.removeEventListener('keydown', onErrorWindowEsc);
+    window.drawPopups.closePopup(document.querySelector('.error'));
+  };
+
+  var onErrorWindowEsc = function (evt) {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      closeErrorWindow();
+    }
+  };
 
   var onSend = function () {
     var successPopup = successTemplate.cloneNode(true);
@@ -99,7 +125,7 @@
 
   var formAdvert = document.querySelector('.ad-form');
   var onFormSubmit = function (evt) {
-    window.backend.serverQuery('POST', 'https://javascript.pages.academy/keksobooking', onSend, new FormData(formAdvert));
+    window.backend.sendLoadData('POST', 'https://javascript.pages.academy/keksobooking', onSend, onError, new FormData(formAdvert));
     evt.preventDefault();
   };
 
