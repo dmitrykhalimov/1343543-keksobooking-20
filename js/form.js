@@ -23,10 +23,16 @@
   var submitButton = document.querySelector('.ad-form__submit');
   var roomsNumber = document.querySelector('#room_number');
   var guestsNumber = document.querySelector('#capacity');
+  var resetButton = document.querySelector('.ad-form__reset');
 
   var onTimeInChange = function () {
     timeOut.value = timeIn.value;
   };
+
+  var resetDefaults = function () {
+  };
+
+  resetButton.addEventListener('click', resetDefaults);
 
   var onTimeOutChange = function () {
     timeIn.value = timeOut.value;
@@ -63,6 +69,7 @@
   updateMapAddress(window.map.MAP_PIN_DEFAULT_X + window.map.MAP_PIN_WIDTH / 2, window.map.MAP_PIN_DEFAULT_Y + window.map.MAP_PIN_HEIGHT / 2);
 
   var onSend = function () {
+    resetButton.click();
     window.map.deactivateMap();
     window.pin.removeSimilar();
     window.pin.reloadData();
