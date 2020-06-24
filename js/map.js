@@ -22,11 +22,11 @@
 
   var changeMapStatus = function (method) {
     var classToDo = 'add';
-    var inputsToDo = true;
+    var isInputsDisabled = true;
 
     if (method === 'activate') {
       classToDo = 'remove';
-      inputsToDo = false;
+      isInputsDisabled = false;
 
       window.pin.createSimilar();
     } else if (method === 'deactivate') {
@@ -41,8 +41,8 @@
 
     document.querySelector('.map').classList[classToDo]('map--faded');
     document.querySelector('.ad-form').classList[classToDo]('ad-form--disabled');
-    window.utils.changeInputs('fieldset', inputsToDo);
-    window.utils.changeInputs('.map__filter', inputsToDo);
+    window.utils.changeInputs('fieldset', isInputsDisabled);
+    window.utils.changeInputs('.map__filter', isInputsDisabled);
   };
 
   var reinitalizePositions = function () {

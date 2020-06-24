@@ -15,8 +15,7 @@
     '3': ['1', '2', '3'],
     '100': ['0']
   };
-  document.querySelector('#title').value = 'dsafsdfksadjhfasdjlfhasdkljfhasdlkjfhasdkfjhasdf';
-  document.querySelector('#price').value = '9000';
+
   var timeIn = document.querySelector('#timein');
   var timeOut = document.querySelector('#timeout');
   var typeFlatList = document.querySelector('#type');
