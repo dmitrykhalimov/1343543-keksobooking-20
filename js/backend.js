@@ -21,12 +21,9 @@
     node.appendChild(picture);
   };
 
-  var serverQuery = function (method, link, onLoad) {
-    var URL = link;
+  var serverQuery = function (method, link, onLoad, data) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-
-    xhr.open(method, URL);
 
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
@@ -40,7 +37,8 @@
       drawError('Ошибка соединения!');
     });
 
-    xhr.send();
+    xhr.open(method, link);
+    xhr.send(data);
   };
 
   window.backend = {
