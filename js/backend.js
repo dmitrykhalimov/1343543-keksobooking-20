@@ -45,5 +45,4 @@
     sendLoadData: sendLoadData,
     drawError: drawError
   };
-  
 })();
