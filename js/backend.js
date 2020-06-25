@@ -21,29 +21,28 @@
     node.appendChild(picture);
   };
 
-  var sendLoadData = function (method, link, onLoad) {
-    var URL = link;
+  var sendLoadData = function (method, link, onLoad, onError, data) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-
-    xhr.open(method, URL);
 
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
         onLoad(xhr.response);
       } else {
-        drawError('Ошибка загрузки данных! Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        onError('Ошибка загрузки данных! Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
     });
 
     xhr.addEventListener('error', function () {
-      drawError('Ошибка соединения!');
+      onError('Ошибка соединения!');
     });
 
-    xhr.send();
+    xhr.open(method, link);
+    xhr.send(data);
   };
 
   window.backend = {
-    sendLoadData: sendLoadData
+    sendLoadData: sendLoadData,
+    drawError: drawError
   };
 })();

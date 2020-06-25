@@ -18,7 +18,9 @@
     });
     return mapPin;
   };
+
   var mainArray = [];
+
   var loadData = function (receivedData) {
     for (var i = 0; i < receivedData.length; i++) {
       mainArray.push(receivedData[i]);
@@ -26,12 +28,29 @@
     }
   };
 
-  window.backend.sendLoadData('GET', 'https://javascript.pages.academy/keksobooking/data', loadData);
+  var reloadData = function () {
+    for (var i = 0; i < mainArray.length; i++) {
+      fragment.appendChild(renderAdvert(mainArray[i], i));
+    }
+  };
+
+  var removeSimilar = function () {
+    var similarPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var i = 0; i < similarPins.length; i++) {
+      similarPins[i].remove();
+    }
+  };
+
+  var createSimilar = function () {
+    document.querySelector('.map__pins').appendChild(fragment);
+  };
+
+  window.backend.sendLoadData('GET', 'https://javascript.pages.academy/keksobooking/data', loadData, window.backend.drawError);
 
   window.pin = {
-    createSimilar: function () {
-      document.querySelector('.map__pins').appendChild(fragment);
-    },
-    mainArray: mainArray
+    createSimilar: createSimilar,
+    removeSimilar: removeSimilar,
+    mainArray: mainArray,
+    reloadData: reloadData
   };
 })();
