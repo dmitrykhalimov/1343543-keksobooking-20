@@ -20,13 +20,13 @@
   };
 
   window.placeCard = {
-    placeCard: function (numberCard) {
+    placeCard: function (advert) {
       if (document.querySelector('.popup')) {
         closeCard();
       }
 
       var fragmentCard = document.createDocumentFragment();
-      fragmentCard.appendChild(window.renderCard.createCard(window.pin.mainArray[numberCard]));
+      fragmentCard.appendChild(window.renderCard.createCard(advert));
       document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
 
       document.addEventListener('keydown', onCardEsc);

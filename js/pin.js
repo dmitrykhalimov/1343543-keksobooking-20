@@ -8,14 +8,14 @@
   var PIN_SHIFT_Y = 70;
   var MAX_PIN_QUANITIY = 5;
 
-  var renderAdvert = function (advert, numberCard) {
+  var renderAdvert = function (advert) {
     var mapPin = mapPinTemplate.cloneNode(true);
     mapPin.style.left = Number(advert.location.x - PIN_SHIFT_X) + 'px';
     mapPin.style.top = Number(advert.location.y - PIN_SHIFT_Y) + 'px';
     mapPin.querySelector('img').src = advert.author.avatar;
     mapPin.querySelector('img').alt = advert.offer.title;
     mapPin.addEventListener('click', function () {
-      window.placeCard.placeCard(numberCard);
+      window.placeCard.placeCard(advert);
     });
     return mapPin;
   };
@@ -37,7 +37,7 @@
     }
 
     for (var i = 0; i < maxLength; i++) {
-      fragment.appendChild(renderAdvert(arrayToRender[i], i));
+      fragment.appendChild(renderAdvert(arrayToRender[i]));
     }
   };
 

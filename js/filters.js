@@ -3,6 +3,7 @@
 (function () {
   var housingType = document.querySelector('#housing-type');
   var filtersForm = document.querySelector('.map__filters');
+  var filteredSimilarPins = window.pin.mainArray;
 
   filtersForm.addEventListener('change', function () {
     if (document.querySelector('.popup')) {
@@ -11,7 +12,7 @@
   });
 
   var onHousingTypeChange = function () {
-    var filteredSimilarPins = window.pin.mainArray.filter(function (similarPin) {
+    filteredSimilarPins = window.pin.mainArray.filter(function (similarPin) {
       return similarPin.offer.type === housingType.value;
     });
     window.pin.reloadData(filteredSimilarPins);
@@ -19,4 +20,8 @@
   };
 
   housingType.addEventListener('change', onHousingTypeChange);
+
+  window.filters = {
+    filteredSimilarPins: filteredSimilarPins
+  };
 })();
