@@ -31,6 +31,7 @@
 
       document.addEventListener('keydown', onCardEsc);
       document.querySelector('.popup__close').addEventListener('click', onCardCloseClick);
-    }
+    },
+    closeCard: closeCard
   };
 })();

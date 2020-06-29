@@ -6,6 +6,7 @@
 
   var PIN_SHIFT_X = 25;
   var PIN_SHIFT_Y = 70;
+  var MAX_PIN_QUANITIY = 5;
 
   var renderAdvert = function (advert, numberCard) {
     var mapPin = mapPinTemplate.cloneNode(true);
@@ -24,13 +25,19 @@
   var loadData = function (receivedData) {
     for (var i = 0; i < receivedData.length; i++) {
       mainArray.push(receivedData[i]);
-      fragment.appendChild(renderAdvert(mainArray[i], i));
     }
+    updateArray(mainArray);
   };
 
-  var reloadData = function () {
-    for (var i = 0; i < mainArray.length; i++) {
-      fragment.appendChild(renderAdvert(mainArray[i], i));
+  var updateArray = function (arrayToRender) {
+    removeSimilar();
+    var maxLength = MAX_PIN_QUANITIY;
+    if (arrayToRender.length < MAX_PIN_QUANITIY) {
+      maxLength = arrayToRender.length;
+    }
+
+    for (var i = 0; i < maxLength; i++) {
+      fragment.appendChild(renderAdvert(arrayToRender[i], i));
     }
   };
 
@@ -51,6 +58,6 @@
     createSimilar: createSimilar,
     removeSimilar: removeSimilar,
     mainArray: mainArray,
-    reloadData: reloadData
+    reloadData: updateArray
   };
 })();

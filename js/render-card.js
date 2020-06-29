@@ -74,6 +74,7 @@
       renderPictures(advert.offer.photos, card);
 
       return card;
-    }
+    },
+    TYPE_FLAT: TYPE_FLAT
   };
 })();
