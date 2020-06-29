@@ -19,9 +19,14 @@
     window.pin.createSimilar();
   };
 
+  var filtersReset = function () {
+    filtersForm.reset();
+  };
+
   housingType.addEventListener('change', onHousingTypeChange);
 
   window.filters = {
-    filteredSimilarPins: filteredSimilarPins
+    filteredSimilarPins: filteredSimilarPins,
+    filtersReset: filtersReset
   };
 })();

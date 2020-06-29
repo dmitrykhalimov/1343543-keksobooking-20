@@ -100,7 +100,7 @@
       window.placeCard.closeCard();
     }
     window.filters.filteredSimilarPins = window.pin.mainArray;
-    console.log(window.filters.filteredSimilarPins);
+    window.filters.filtersReset();
     window.map.changeMapStatus('deactivate');
     window.pin.removeSimilar();
     window.pin.reloadData(window.filters.filteredSimilarPins);
