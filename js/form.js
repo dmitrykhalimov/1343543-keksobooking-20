@@ -96,6 +96,7 @@
 
   var fullReset = function () {
     formAdvert.reset();
+    window.placeCard.closeCard();
     window.map.changeMapStatus('deactivate');
     window.pin.removeSimilar();
     window.pin.reloadData();
