@@ -96,10 +96,14 @@
 
   var fullReset = function () {
     formAdvert.reset();
-    window.placeCard.closeCard();
+    if (document.querySelector('.popup')) {
+      window.placeCard.closeCard();
+    }
+    window.filters.filteredSimilarPins = window.pin.mainArray;
+    console.log(window.filters.filteredSimilarPins);
     window.map.changeMapStatus('deactivate');
     window.pin.removeSimilar();
-    window.pin.reloadData();
+    window.pin.reloadData(window.filters.filteredSimilarPins);
   };
 
   resetButton.addEventListener('click', function (evt) {
