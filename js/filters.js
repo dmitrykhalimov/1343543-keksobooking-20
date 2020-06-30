@@ -104,24 +104,6 @@
     return (returnFlag === 5);
   };
 
-  var isSimilar2 = function (similarPin) {
-    returnFlag = 0;
-    if ((similarPin.offer.type === filtersMap.offer.type) || filtersMap.offer.type === -1) {
-      returnFlag++;
-    }
-
-    if ((similarPin.offer.rooms === filtersMap.offer.rooms) || filtersMap.offer.rooms === -1) {
-      returnFlag++;
-    }
-    if ((similarPin.offer.guests === filtersMap.offer.guests) || filtersMap.offer.guests === -1) {
-      returnFlag++;
-    }
-    if (window.utils.isIncludeArray(similarPin.offer.features, filtersMap.offer.features)) {
-      returnFlag++;
-    }
-    return (returnFlag === 5);
-  };
-
   var onFiltersBarChange = function () {
     window.debounce(function () {
       filteredSimilarPins = [];
