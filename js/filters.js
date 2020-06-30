@@ -9,7 +9,7 @@
     HIGH_MIN: 50001,
     HIGH_MAX: Infinity,
   };
-
+  console.log(window.pin.MAX_PIN_QUANTITY);
   var prices = {
     'middle': {
       min: PriceDefault.MIDDLE_MIN,
@@ -76,17 +76,26 @@
     if (window.utils.isIncludeArray(similarPin.offer.features, filtersMap.offer.features)) {
       returnFlag++;
     }
-
     return (returnFlag === 5);
   };
 
   var onFiltersBarChange = function () {
     window.debounce(function () {
+      filteredSimilarPins = [];
       if (document.querySelector('.popup')) {
         window.placeCard.closeCard();
       }
       buildFiltersMap();
-      filteredSimilarPins = window.pin.mainArray.filter(isSimilar);
+      var counter = 0;
+      for (var i = 0; i < window.pin.mainArray.length; i++) {
+        if (counter === window.pin.MAX_PIN_QUANTITY) {
+          break;
+        }
+        if (isSimilar(window.pin.mainArray[i])) {
+          filteredSimilarPins.push(window.pin.mainArray[i]);
+          counter++;
+        }
+      }
       window.pin.reloadData(filteredSimilarPins);
       window.pin.createSimilar();
     });

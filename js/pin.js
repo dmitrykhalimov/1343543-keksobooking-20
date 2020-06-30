@@ -6,7 +6,7 @@
 
   var PIN_SHIFT_X = 25;
   var PIN_SHIFT_Y = 70;
-  var MAX_PIN_QUANITIY = 5;
+  var MAX_PIN_QUANTITY = 5;
 
   var renderAdvert = function (advert) {
     var mapPin = mapPinTemplate.cloneNode(true);
@@ -31,8 +31,8 @@
 
   var updateArray = function (arrayToRender) {
     removeSimilar();
-    var maxLength = MAX_PIN_QUANITIY;
-    if (arrayToRender.length < MAX_PIN_QUANITIY) {
+    var maxLength = MAX_PIN_QUANTITY;
+    if (arrayToRender.length < MAX_PIN_QUANTITY) {
       maxLength = arrayToRender.length;
     }
 
@@ -58,6 +58,7 @@
     createSimilar: createSimilar,
     removeSimilar: removeSimilar,
     mainArray: mainArray,
-    reloadData: updateArray
+    reloadData: updateArray,
+    MAX_PIN_QUANTITY: MAX_PIN_QUANTITY
   };
 })();
