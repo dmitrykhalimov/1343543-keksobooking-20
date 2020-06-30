@@ -86,7 +86,6 @@
         window.placeCard.closeCard();
       }
       buildFiltersMap();
-      filteredSimilarPins = window.pin.mainArray;
       filteredSimilarPins = window.pin.mainArray.filter(isSimilar);
       window.pin.reloadData(filteredSimilarPins);
       window.pin.createSimilar();
