@@ -28,6 +28,9 @@
 
   var housingType = document.querySelector('#housing-type');
   var housingPrice = document.querySelector('#housing-price');
+  var housingRooms = document.querySelector('#housing-rooms');
+  var housingGuests = document.querySelector('#housing-guests');
+
   var filtersForm = document.querySelector('.map__filters');
   var filteredSimilarPins = window.pin.mainArray;
   var filtersMap;
@@ -39,6 +42,8 @@
     filtersMap.offer.price = housingPrice.value;
     filtersMap.offer.priceMin = prices[housingPrice.value].min;
     filtersMap.offer.priceMax = prices[housingPrice.value].max;
+    filtersMap.offer.rooms = housingRooms.value;
+    filtersMap.offer.guests = housingGuests.value;
   };
 
   var isSimilar = function (similarPin) {
@@ -49,7 +54,13 @@
     if ((similarPin.offer.price <= filtersMap.offer.priceMax && similarPin.offer.price >= filtersMap.offer.priceMin) || filtersMap.offer.price === 'any') {
       returnFlag++;
     }
-    return (returnFlag === 2);
+    if ((similarPin.offer.rooms === Number(filtersMap.offer.rooms)) || filtersMap.offer.rooms === 'any') {
+      returnFlag++;
+    }
+    if ((similarPin.offer.guests === Number(filtersMap.offer.guests)) || filtersMap.offer.guests === 'any') {
+      returnFlag++;
+    }
+    return (returnFlag === 4);
   };
 
   var onFiltersBarChange = function () {
@@ -65,24 +76,10 @@
 
   filtersForm.addEventListener('change', onFiltersBarChange);
 
-/*
-  var onHousingTypeChange = function () {
-    filteredSimilarPins = window.pin.mainArray;
-    if (housingType.value !== 'any') {
-      filteredSimilarPins = window.pin.mainArray.filter(function (similarPin) {
-        return similarPin.offer.type === housingType.value;
-      });
-    }
-    window.pin.reloadData(filteredSimilarPins);
-    window.pin.createSimilar();
-  };
-*/
   var filtersReset = function () {
     filtersForm.reset();
   };
-/*
-  housingType.addEventListener('change', onHousingTypeChange);
-*/
+
   window.filters = {
     filteredSimilarPins: filteredSimilarPins,
     filtersReset: filtersReset
