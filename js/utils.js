@@ -24,6 +24,13 @@
       for (var i = 0; i < inputs.length; i++) {
         inputs[i].disabled = isDisabled;
       }
+    },
+    isIncludeArray: function (arrayDefault, arrayToCompare) {
+      console.log(arrayDefault);
+      console.log(arrayToCompare);
+      return arrayToCompare.every(function (element) {
+        return arrayDefault.indexOf(element) > -1;
+      });
     }
   };
 })();

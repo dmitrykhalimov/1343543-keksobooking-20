@@ -30,10 +30,22 @@
   var housingPrice = document.querySelector('#housing-price');
   var housingRooms = document.querySelector('#housing-rooms');
   var housingGuests = document.querySelector('#housing-guests');
+  var housingFeatures = document.querySelector('#housing-features');
+  var features = housingFeatures.querySelectorAll('.map__checkbox');
 
   var filtersForm = document.querySelector('.map__filters');
   var filteredSimilarPins = window.pin.mainArray;
   var filtersMap;
+
+  var buildFeaturesArray = function () {
+    var checkedFeatures = [];
+    for (var i = 0; i < features.length; i++) {
+      if (features[i].checked) {
+        checkedFeatures.push(features[i].value);
+      }
+    }
+    return checkedFeatures;
+  };
 
   var buildFiltersMap = function () {
     filtersMap = {};
@@ -44,6 +56,7 @@
     filtersMap.offer.priceMax = prices[housingPrice.value].max;
     filtersMap.offer.rooms = housingRooms.value;
     filtersMap.offer.guests = housingGuests.value;
+    filtersMap.offer.features = buildFeaturesArray();
   };
 
   var isSimilar = function (similarPin) {
@@ -60,7 +73,11 @@
     if ((similarPin.offer.guests === Number(filtersMap.offer.guests)) || filtersMap.offer.guests === 'any') {
       returnFlag++;
     }
-    return (returnFlag === 4);
+    if (window.utils.isIncludeArray(similarPin.offer.features, filtersMap.offer.features)) {
+      returnFlag++;
+    }
+
+    return (returnFlag === 5);
   };
 
   var onFiltersBarChange = function () {
