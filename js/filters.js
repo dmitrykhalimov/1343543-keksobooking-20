@@ -54,7 +54,7 @@
         return prices[i].name;
       }
     }
-    return 'Error';
+    return -1;
   };
 
   var buildFiltersMap = function () {
@@ -69,14 +69,47 @@
 
   var returnFlag = 0;
 
+  var checkSimilar = function (similarPin, field) {
+    switch (field) {
+      case 'type':
+      case 'rooms':
+      case 'guests': {
+        if ((similarPin.offer[field] === filtersMap.offer[field]) || filtersMap.offer[field] === -1) {
+          returnFlag++;
+        }
+        break;
+      }
+      case 'price': {
+        if ((translatePriceToText(similarPin.offer[field]) === filtersMap.offer[field]) || filtersMap.offer[field] === -1) {
+          returnFlag++;
+        }
+        break;
+      }
+      case 'features': {
+        if (window.utils.isIncludeArray(similarPin.offer[field], filtersMap.offer[field])) {
+          returnFlag++;
+        }
+        break;
+      }
+    }
+  };
+
   var isSimilar = function (similarPin) {
+    returnFlag = 0;
+    checkSimilar(similarPin, 'type');
+    checkSimilar(similarPin, 'rooms');
+    checkSimilar(similarPin, 'price');
+    checkSimilar(similarPin, 'guests');
+    checkSimilar(similarPin, 'features');
+    return (returnFlag === 5);
+  };
+
+  var isSimilar2 = function (similarPin) {
     returnFlag = 0;
     if ((similarPin.offer.type === filtersMap.offer.type) || filtersMap.offer.type === -1) {
       returnFlag++;
     }
-    if ((translatePriceToText(similarPin.offer.price) === filtersMap.offer.price) || filtersMap.offer.price === -1) {
-      returnFlag++;
-    }
+
     if ((similarPin.offer.rooms === filtersMap.offer.rooms) || filtersMap.offer.rooms === -1) {
       returnFlag++;
     }
