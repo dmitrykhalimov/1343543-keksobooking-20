@@ -12,9 +12,12 @@
   });
 
   var onHousingTypeChange = function () {
-    filteredSimilarPins = window.pin.mainArray.filter(function (similarPin) {
-      return similarPin.offer.type === housingType.value;
-    });
+    filteredSimilarPins = window.pin.mainArray;
+    if (housingType.value !== 'any') {
+      filteredSimilarPins = window.pin.mainArray.filter(function (similarPin) {
+        return similarPin.offer.type === housingType.value;
+      });
+    }
     window.pin.reloadData(filteredSimilarPins);
     window.pin.createSimilar();
   };
