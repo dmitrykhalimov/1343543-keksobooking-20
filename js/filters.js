@@ -81,14 +81,16 @@
   };
 
   var onFiltersBarChange = function () {
-    if (document.querySelector('.popup')) {
-      window.placeCard.closeCard();
-    }
-    buildFiltersMap();
-    filteredSimilarPins = window.pin.mainArray;
-    filteredSimilarPins = window.pin.mainArray.filter(isSimilar);
-    window.pin.reloadData(filteredSimilarPins);
-    window.pin.createSimilar();
+    window.debounce(function () {
+      if (document.querySelector('.popup')) {
+        window.placeCard.closeCard();
+      }
+      buildFiltersMap();
+      filteredSimilarPins = window.pin.mainArray;
+      filteredSimilarPins = window.pin.mainArray.filter(isSimilar);
+      window.pin.reloadData(filteredSimilarPins);
+      window.pin.createSimilar();
+    });
   };
 
   filtersForm.addEventListener('change', onFiltersBarChange);
