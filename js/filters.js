@@ -47,35 +47,70 @@
     return checkedFeatures;
   };
 
+  var translateAny = function (valueToTranslate) {
+    if (valueToTranslate === 'any') {
+      return -1;
+    }
+    return valueToTranslate;
+  };
+
+  var translatePriceToText = function (valueToTranslate) {
+
+  }
+
   var buildFiltersMap = function () {
     filtersMap = {};
     filtersMap.offer = {};
-    filtersMap.offer.type = housingType.value;
+    filtersMap.offer.type = translateAny(housingType.value);
     filtersMap.offer.price = housingPrice.value;
     filtersMap.offer.priceMin = prices[housingPrice.value].min;
     filtersMap.offer.priceMax = prices[housingPrice.value].max;
-    filtersMap.offer.rooms = housingRooms.value;
-    filtersMap.offer.guests = housingGuests.value;
+    filtersMap.offer.rooms = Number(translateAny(housingRooms.value));
+    filtersMap.offer.guests = Number(translateAny(housingGuests.value));
     filtersMap.offer.features = buildFeaturesArray();
   };
 
+  var returnFlag = 0;
+/*
+  var isSimilar2 = function (similarPin, typeOffer) {
+    switch (typeOffer) {
+      case 'type':
+      case 'rooms':
+      case 'guests':
+        if ((similarPin.offer[typeOffer] === filtersMap.offer.type) || filtersMap.offer.type === 'any') {
+          returnFlag++;
+        }
+    }
+  };
+
+  var isSimilar3 = function (similarPin) {
+    isSimilar2(similarPin, 'type');
+    isSimilar2(similarPin, 'rooms');
+    isSimilar2(similarPin, 'type');
+    isSimilar2(similarPin, 'type');
+  };*/
+
   var isSimilar = function (similarPin) {
-    var returnFlag = 0;
-    if ((similarPin.offer.type === filtersMap.offer.type) || filtersMap.offer.type === 'any') {
+    returnFlag = 0;
+    if ((similarPin.offer.type === filtersMap.offer.type) || filtersMap.offer.type === -1) {
       returnFlag++;
     }
     if ((similarPin.offer.price <= filtersMap.offer.priceMax && similarPin.offer.price >= filtersMap.offer.priceMin) || filtersMap.offer.price === 'any') {
       returnFlag++;
     }
-    if ((similarPin.offer.rooms === Number(filtersMap.offer.rooms)) || filtersMap.offer.rooms === 'any') {
+    console.log('inPin ' + similarPin.offer.rooms);
+    console.log('inFilter ' + filtersMap.offer.rooms);
+    console.log('Are they equals' + (filtersMap.offer.rooms === -1));
+    if ((similarPin.offer.rooms === filtersMap.offer.rooms) || filtersMap.offer.rooms === -1) {
       returnFlag++;
     }
-    if ((similarPin.offer.guests === Number(filtersMap.offer.guests)) || filtersMap.offer.guests === 'any') {
+    if ((similarPin.offer.guests === filtersMap.offer.guests) || filtersMap.offer.guests === -1) {
       returnFlag++;
     }
     if (window.utils.isIncludeArray(similarPin.offer.features, filtersMap.offer.features)) {
       returnFlag++;
     }
+    console.log(returnFlag)
     return (returnFlag === 5);
   };
 
