@@ -53,11 +53,11 @@
   };
 
   var isSimilar = function (offer) {
-    return checkSimilar(housingType, offer.offer['type']) &&
-    checkSimilar(housingRooms, String(offer.offer['rooms'])) &&
-    checkSimilar(housingPrice, translatePriceToText(offer.offer['price'])) &&
-    checkSimilar(housingGuests, offer.offer['guests']) &&
-    checkFeatures(offer.offer);
+    return checkSimilar(housingType, offer['type']) &&
+    checkSimilar(housingRooms, String(offer['rooms'])) &&
+    checkSimilar(housingPrice, translatePriceToText(offer['price'])) &&
+    checkSimilar(housingGuests, String(offer['guests'])) &&
+    checkFeatures(offer);
   };
 
   var onFiltersBarChange = function () {
@@ -70,7 +70,7 @@
         if (filteredSimilarPins.length === window.pin.MAX_PIN_QUANTITY) {
           break;
         }
-        if (isSimilar(window.pin.mainArray[i])) {
+        if (isSimilar(window.pin.mainArray[i].offer)) {
           filteredSimilarPins.push(window.pin.mainArray[i]);
         }
       }
