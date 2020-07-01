@@ -96,9 +96,14 @@
 
   var fullReset = function () {
     formAdvert.reset();
+    if (document.querySelector('.popup')) {
+      window.placeCard.closeCard();
+    }
+    window.filters.filteredSimilarPins = window.pin.mainArray;
+    window.filters.filtersReset();
     window.map.changeMapStatus('deactivate');
     window.pin.removeSimilar();
-    window.pin.reloadData();
+    window.pin.reloadData(window.filters.filteredSimilarPins);
   };
 
   resetButton.addEventListener('click', function (evt) {

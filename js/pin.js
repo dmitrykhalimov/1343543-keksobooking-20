@@ -6,15 +6,16 @@
 
   var PIN_SHIFT_X = 25;
   var PIN_SHIFT_Y = 70;
+  var MAX_PIN_QUANTITY = 5;
 
-  var renderAdvert = function (advert, numberCard) {
+  var renderAdvert = function (advert) {
     var mapPin = mapPinTemplate.cloneNode(true);
     mapPin.style.left = Number(advert.location.x - PIN_SHIFT_X) + 'px';
     mapPin.style.top = Number(advert.location.y - PIN_SHIFT_Y) + 'px';
     mapPin.querySelector('img').src = advert.author.avatar;
     mapPin.querySelector('img').alt = advert.offer.title;
     mapPin.addEventListener('click', function () {
-      window.placeCard.placeCard(numberCard);
+      window.placeCard.placeCard(advert);
     });
     return mapPin;
   };
@@ -24,13 +25,19 @@
   var loadData = function (receivedData) {
     for (var i = 0; i < receivedData.length; i++) {
       mainArray.push(receivedData[i]);
-      fragment.appendChild(renderAdvert(mainArray[i], i));
     }
+    updateArray(mainArray);
   };
 
-  var reloadData = function () {
-    for (var i = 0; i < mainArray.length; i++) {
-      fragment.appendChild(renderAdvert(mainArray[i], i));
+  var updateArray = function (arrayToRender) {
+    removeSimilar();
+    var maxLength = MAX_PIN_QUANTITY;
+    if (arrayToRender.length < MAX_PIN_QUANTITY) {
+      maxLength = arrayToRender.length;
+    }
+
+    for (var i = 0; i < maxLength; i++) {
+      fragment.appendChild(renderAdvert(arrayToRender[i]));
     }
   };
 
@@ -51,6 +58,7 @@
     createSimilar: createSimilar,
     removeSimilar: removeSimilar,
     mainArray: mainArray,
-    reloadData: reloadData
+    reloadData: updateArray,
+    MAX_PIN_QUANTITY: MAX_PIN_QUANTITY
   };
 })();
