@@ -101,7 +101,7 @@
     }
     window.filters.filteredSimilarPins = window.pin.mainArray;
     window.filters.reset();
-    window.map.changeMapStatus('deactivate');
+    window.map.changeStatus('deactivate');
     window.images.reset();
     window.pin.removeSimilar();
     window.pin.reloadData(window.filters.filteredSimilarPins);

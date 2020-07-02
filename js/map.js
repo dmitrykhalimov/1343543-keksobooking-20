@@ -129,7 +129,7 @@
     MAP_PIN_DEFAULT_Y: MAP_PIN_DEFAULT_Y,
     MAP_PIN_WIDTH: MAP_PIN_WIDTH,
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,
-    changeMapStatus: changeMapStatus
+    changeStatus: changeMapStatus
   };
 
   window.utils.changeInputs('.map__filter', true);
