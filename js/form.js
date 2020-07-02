@@ -94,27 +94,27 @@
 
   var formAdvert = document.querySelector('.ad-form');
 
-  var fullReset = function () {
+  var resetAllData = function () {
     formAdvert.reset();
     if (document.querySelector('.popup')) {
       window.placeCard.closeCard();
     }
     window.filters.filteredSimilarPins = window.pin.mainArray;
-    window.filters.filtersReset();
+    window.filters.reset();
     window.map.changeMapStatus('deactivate');
-    window.images.imagesReset();
+    window.images.reset();
     window.pin.removeSimilar();
     window.pin.reloadData(window.filters.filteredSimilarPins);
   };
 
   resetButton.addEventListener('click', function (evt) {
     evt.preventDefault();
-    fullReset();
+    resetAllData();
   });
 
   var onSend = function () {
     createPopup('success');
-    fullReset();
+    resetAllData();
   };
 
   var onError = function () {

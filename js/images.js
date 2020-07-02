@@ -54,7 +54,7 @@
   avatarInput.addEventListener('change', onAvatarLoad);
   photoInput.addEventListener('change', onPhotoLoad);
 
-  var imagesReset = function () {
+  var resetImages = function () {
     avatarPlace.src = 'img/muffin-grey.svg';
     if (photoContainer.querySelector('img')) {
       photoPlace.remove();
@@ -62,6 +62,6 @@
   };
 
   window.images = {
-    imagesReset: imagesReset
+    reset: resetImages
   };
 })();

@@ -81,12 +81,12 @@
 
   filtersForm.addEventListener('change', onFiltersBarChange);
 
-  var filtersReset = function () {
+  var resetFilters = function () {
     filtersForm.reset();
   };
 
   window.filters = {
     filteredSimilarPins: filteredSimilarPins,
-    filtersReset: filtersReset
+    reset: resetFilters
   };
 })();
