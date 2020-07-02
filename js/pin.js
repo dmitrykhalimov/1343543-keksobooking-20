@@ -35,15 +35,15 @@
     updateArray(mainArray);
   };
 
-  var updateArray = function (arrayToRender) {
+  var updateArray = function (dataToRender) {
     removeSimilar();
     var maxLength = MAX_PIN_QUANTITY;
-    if (arrayToRender.length < MAX_PIN_QUANTITY) {
-      maxLength = arrayToRender.length;
+    if (dataToRender.length < MAX_PIN_QUANTITY) {
+      maxLength = dataToRender.length;
     }
 
     for (var i = 0; i < maxLength; i++) {
-      fragment.appendChild(renderAdvert(arrayToRender[i]));
+      fragment.appendChild(renderAdvert(dataToRender[i]));
     }
   };
 

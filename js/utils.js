@@ -12,9 +12,9 @@
         inputs[i].disabled = isDisabled;
       }
     },
-    isIncludeArray: function (arrayDefault, arrayToCompare) {
-      return arrayToCompare.every(function (element) {
-        return arrayDefault.indexOf(element) > -1;
+    isIncludeArray: function (dataDefault, dataToCompare) {
+      return dataToCompare.every(function (element) {
+        return dataDefault.indexOf(element) > -1;
       });
     }
   };
