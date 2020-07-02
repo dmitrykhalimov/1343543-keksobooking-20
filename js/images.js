@@ -2,6 +2,8 @@
 
 (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var PHOTO_WIDTH = 40;
+  var PHOTO_HEIGHT = 44;
 
   var avatarInput = document.querySelector('.ad-form__field input[type=file]');
   var avatarPlace = document.querySelector('.ad-form-header__preview img');
@@ -24,8 +26,8 @@
   var createPhoto = function () {
     var photo = document.createElement('img');
 
-    photo.width = '40';
-    photo.height = '44';
+    photo.width = PHOTO_WIDTH;
+    photo.height = PHOTO_HEIGHT;
     photo.alt = 'Фотография квартиры';
     photoContainer.appendChild(photo);
     photoPlace = photoContainer.querySelector('img');

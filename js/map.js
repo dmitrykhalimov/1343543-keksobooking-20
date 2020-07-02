@@ -92,7 +92,7 @@
       mainPinX = mainPinX - shift.x;
       mainPinY = mainPinY - shift.y;
 
-      if (mainPinY < 130 || mainPinY > 630 || mainPinX < 0 || mainPinX > 1200) {
+      if (mainPinY < MapPinLimits.TOP_Y || mainPinY > MapPinLimits.BOTTOM_Y || mainPinX < MapPinLimits.LEFT_X || mainPinX > MapPinLimits.RIGHT_X) {
         reinitalizePositions();
       } else {
         mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';

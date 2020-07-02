@@ -8,6 +8,13 @@
     'bungalo': 'Бунгало'
   };
 
+  var ROOMS_QUANTITY_SINGLE = 1;
+  var ROOMS_QUANTITY_MAX_MUTIPLE = 5;
+  var GUESTS_QUANTITY_SINGLE = 1;
+
+  var POPUP_PHOTO_WIDTH = 45;
+  var POPUP_PHOTO_HEIGHT = 50;
+
   var renderFeatures = function (features, card) {
     var listFeatures = card.querySelector('.popup__features');
     while (listFeatures.firstChild) {
@@ -29,8 +36,8 @@
     for (var i = 0; i < pictures.length; i++) {
       var picture = document.createElement('img');
       picture.classList.add('popup__photo');
-      picture.width = 45;
-      picture.height = 50;
+      picture.width = POPUP_PHOTO_WIDTH;
+      picture.height = POPUP_PHOTO_HEIGHT;
       picture.src = pictures[i];
       picture.alt = 'Фотография жилья';
       picturesContainer.appendChild(picture);
@@ -40,13 +47,13 @@
   var generateCapacityString = function (rooms, guests) {
     var roomsString = 'комнат';
     var guestString = 'гостей';
-    if (rooms === 1) {
+    if (rooms === ROOMS_QUANTITY_SINGLE) {
       roomsString += 'а';
-    } else if (rooms < 5) {
+    } else if (rooms < ROOMS_QUANTITY_MAX_MUTIPLE) {
       roomsString += 'ы';
     }
 
-    if (guests === 1) {
+    if (guests === GUESTS_QUANTITY_SINGLE) {
       guestString = 'гостя';
     }
 
