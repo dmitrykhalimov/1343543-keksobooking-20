@@ -102,6 +102,7 @@
     window.filters.filteredSimilarPins = window.pin.mainArray;
     window.filters.filtersReset();
     window.map.changeMapStatus('deactivate');
+    window.images.imagesReset();
     window.pin.removeSimilar();
     window.pin.reloadData(window.filters.filteredSimilarPins);
   };
