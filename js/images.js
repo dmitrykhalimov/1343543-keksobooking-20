@@ -17,9 +17,9 @@
     updatePhoto(photoInput, photoPlace);
   };
 
-  var updatePhoto = function (fileChooser, preview) {
+  var updatePhoto = function (selectedInput, imagePlace) {
 
-    var file = fileChooser.files[0];
+    var file = selectedInput.files[0];
     var fileName = file.name.toLowerCase();
 
     var matches = FILE_TYPES.some(function (it) {
@@ -30,7 +30,7 @@
       var reader = new FileReader();
 
       reader.addEventListener('load', function () {
-        preview.src = reader.result;
+        imagePlace.src = reader.result;
       });
 
       reader.readAsDataURL(file);
