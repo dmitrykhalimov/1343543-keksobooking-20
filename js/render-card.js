@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var TYPE_FLAT = {
+  var typeFlat = {
     'palace': 'Дворец',
     'flat': 'Квартира',
     'house': 'Дом',
@@ -64,7 +64,7 @@
       card.querySelector('.popup__title').textContent = advert.offer.title;
       card.querySelector('.popup__text--address').textContent = advert.offer.address;
       card.querySelector('.popup__text--price').textContent = advert.offer.price + ' ₽/ночь';
-      card.querySelector('.popup__type').textContent = TYPE_FLAT[advert.offer.type];
+      card.querySelector('.popup__type').textContent = typeFlat[advert.offer.type];
       card.querySelector('.popup__text--capacity').textContent = (generateCapacityString(advert.offer.rooms, advert.offer.guests));
       card.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
       card.querySelector('.popup__description').textContent = advert.offer.description;
@@ -74,7 +74,6 @@
       renderPictures(advert.offer.photos, card);
 
       return card;
-    },
-    TYPE_FLAT: TYPE_FLAT
+    }
   };
 })();

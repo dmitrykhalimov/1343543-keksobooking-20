@@ -24,15 +24,15 @@
     return mapPin;
   };
 
-  var mainArray = [];
+  var adverts = [];
 
   var loadData = function (receivedData) {
     for (var i = 0; i < receivedData.length; i++) {
       if (receivedData[i].offer) {
-        mainArray.push(receivedData[i]);
+        adverts.push(receivedData[i]);
       }
     }
-    updateArray(mainArray);
+    updateArray(adverts);
   };
 
   var updateArray = function (dataToRender) {
@@ -63,7 +63,7 @@
   window.pin = {
     createSimilar: createSimilar,
     removeSimilar: removeSimilar,
-    mainArray: mainArray,
+    adverts: adverts,
     reloadData: updateArray,
     MAX_PIN_QUANTITY: MAX_PIN_QUANTITY
   };

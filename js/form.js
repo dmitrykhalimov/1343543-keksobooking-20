@@ -2,14 +2,14 @@
 
 (function () {
 
-  var TYPE_FLAT_MIN_VALUE = {
+  var typeFlatMinValue = {
     'palace': 10000,
     'flat': 1000,
     'house': 5000,
     'bungalo': 0
   };
 
-  var DISABLED_ROOMS = {
+  var disabledRooms = {
     '1': ['1'],
     '2': ['1', '2'],
     '3': ['1', '2', '3'],
@@ -34,8 +34,8 @@
   };
 
   var onTypeFlatChange = function () {
-    priceInput.setAttribute('min', TYPE_FLAT_MIN_VALUE[typeFlatList.value]);
-    priceInput.setAttribute('placeholder', TYPE_FLAT_MIN_VALUE[typeFlatList.value]);
+    priceInput.setAttribute('min', typeFlatMinValue[typeFlatList.value]);
+    priceInput.setAttribute('placeholder', typeFlatMinValue[typeFlatList.value]);
   };
 
   timeIn.addEventListener('change', onTimeInChange);
@@ -43,7 +43,7 @@
   typeFlatList.addEventListener('change', onTypeFlatChange);
 
   submitButton.addEventListener('click', function () {
-    if (!DISABLED_ROOMS[roomsNumber.value].includes(guestsNumber.value)) {
+    if (!disabledRooms[roomsNumber.value].includes(guestsNumber.value)) {
       guestsNumber.setCustomValidity('Выбрано некорректное количество мест');
     } else {
       guestsNumber.setCustomValidity('');
@@ -52,7 +52,7 @@
 
   roomsNumber.addEventListener('change', function () {
     for (var j = 0; j < guestsNumber.options.length; j++) {
-      guestsNumber[j].disabled = !DISABLED_ROOMS[roomsNumber.value].includes(guestsNumber.options[j].value);
+      guestsNumber[j].disabled = !disabledRooms[roomsNumber.value].includes(guestsNumber.options[j].value);
     }
   });
 
@@ -99,7 +99,7 @@
     if (document.querySelector('.popup')) {
       window.placeCard.close();
     }
-    window.filters.filteredSimilarPins = window.pin.mainArray;
+    window.filters.filteredSimilarPins = window.pin.adverts;
     window.filters.reset();
     window.map.changeStatus('deactivate');
     window.images.reset();
