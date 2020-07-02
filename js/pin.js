@@ -1,12 +1,12 @@
 'use strict';
 
 (function () {
-  var fragment = document.createDocumentFragment();
-  var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
   var PIN_SHIFT_X = 25;
   var PIN_SHIFT_Y = 70;
   var MAX_PIN_QUANTITY = 5;
+
+  var fragment = document.createDocumentFragment();
+  var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
   var renderAdvert = function (advert) {
     var mapPin = mapPinTemplate.cloneNode(true);
@@ -15,29 +15,35 @@
     mapPin.querySelector('img').src = advert.author.avatar;
     mapPin.querySelector('img').alt = advert.offer.title;
     mapPin.addEventListener('click', function () {
-      window.placeCard.placeCard(advert);
+      if (document.querySelector('.map__pin--active')) {
+        document.querySelector('.map__pin--active').classList.remove('map__pin--active');
+      }
+      mapPin.classList.add('map__pin--active');
+      window.placeCard.place(advert);
     });
     return mapPin;
   };
 
-  var mainArray = [];
+  var adverts = [];
 
   var loadData = function (receivedData) {
     for (var i = 0; i < receivedData.length; i++) {
-      mainArray.push(receivedData[i]);
+      if (receivedData[i].offer) {
+        adverts.push(receivedData[i]);
+      }
     }
-    updateArray(mainArray);
+    updateArray(adverts);
   };
 
-  var updateArray = function (arrayToRender) {
+  var updateArray = function (dataToRender) {
     removeSimilar();
     var maxLength = MAX_PIN_QUANTITY;
-    if (arrayToRender.length < MAX_PIN_QUANTITY) {
-      maxLength = arrayToRender.length;
+    if (dataToRender.length < MAX_PIN_QUANTITY) {
+      maxLength = dataToRender.length;
     }
 
     for (var i = 0; i < maxLength; i++) {
-      fragment.appendChild(renderAdvert(arrayToRender[i]));
+      fragment.appendChild(renderAdvert(dataToRender[i]));
     }
   };
 
@@ -57,7 +63,7 @@
   window.pin = {
     createSimilar: createSimilar,
     removeSimilar: removeSimilar,
-    mainArray: mainArray,
+    adverts: adverts,
     reloadData: updateArray,
     MAX_PIN_QUANTITY: MAX_PIN_QUANTITY
   };

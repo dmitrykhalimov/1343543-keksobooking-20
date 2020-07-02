@@ -27,7 +27,7 @@
   var features = housingFeatures.querySelectorAll('.map__checkbox');
 
   var filtersForm = document.querySelector('.map__filters');
-  var filteredSimilarPins = window.pin.mainArray;
+  var filteredSimilarPins = window.pin.adverts;
 
   var checkSimilar = function (element, offer) {
     return element.value === 'any' || element.value === offer;
@@ -64,14 +64,14 @@
     window.debounce(function () {
       filteredSimilarPins = [];
       if (document.querySelector('.popup')) {
-        window.placeCard.closeCard();
+        window.placeCard.close();
       }
-      for (var i = 0; i < window.pin.mainArray.length; i++) {
+      for (var i = 0; i < window.pin.adverts.length; i++) {
         if (filteredSimilarPins.length === window.pin.MAX_PIN_QUANTITY) {
           break;
         }
-        if (isSimilar(window.pin.mainArray[i].offer)) {
-          filteredSimilarPins.push(window.pin.mainArray[i]);
+        if (isSimilar(window.pin.adverts[i].offer)) {
+          filteredSimilarPins.push(window.pin.adverts[i]);
         }
       }
       window.pin.reloadData(filteredSimilarPins);
@@ -81,12 +81,12 @@
 
   filtersForm.addEventListener('change', onFiltersBarChange);
 
-  var filtersReset = function () {
+  var resetFilters = function () {
     filtersForm.reset();
   };
 
   window.filters = {
     filteredSimilarPins: filteredSimilarPins,
-    filtersReset: filtersReset
+    reset: resetFilters
   };
 })();

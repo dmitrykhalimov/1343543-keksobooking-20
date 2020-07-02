@@ -8,11 +8,11 @@
   var MAP_PIN_TICK_HEIGHT = 22;
   var MAP_PIN_TICK_TOP_SHIFT = -5;
 
-  var MAP_PIN_LIMITS = {
-    leftX: 0,
-    rightX: 1200,
-    topY: 130,
-    bottomY: 630
+  var MapPinLimits = {
+    LEFT_X: 0,
+    RIGHT_X: 1200,
+    TOP_Y: 130,
+    BOTTOM_Y: 630
   };
 
   var mainPinX = MAP_PIN_DEFAULT_X + MAP_PIN_WIDTH / 2;
@@ -46,19 +46,19 @@
   };
 
   var reinitalizePositions = function () {
-    if (mainPinY < MAP_PIN_LIMITS.topY) {
-      mapPinMain.style.top = MAP_PIN_LIMITS.topY - MAP_PIN_HEIGHT - MAP_PIN_TICK_HEIGHT - MAP_PIN_TICK_TOP_SHIFT + 'px';
-      mainPinY = MAP_PIN_LIMITS.topY;
-    } else if (mainPinY > MAP_PIN_LIMITS.bottomY) {
-      mapPinMain.style.top = MAP_PIN_LIMITS.bottomY - MAP_PIN_HEIGHT - MAP_PIN_TICK_HEIGHT - MAP_PIN_TICK_TOP_SHIFT + 'px';
-      mainPinY = MAP_PIN_LIMITS.bottomY;
+    if (mainPinY < MapPinLimits.TOP_Y) {
+      mapPinMain.style.top = MapPinLimits.TOP_Y - MAP_PIN_HEIGHT - MAP_PIN_TICK_HEIGHT - MAP_PIN_TICK_TOP_SHIFT + 'px';
+      mainPinY = MapPinLimits.TOP_Y;
+    } else if (mainPinY > MapPinLimits.BOTTOM_Y) {
+      mapPinMain.style.top = MapPinLimits.BOTTOM_Y - MAP_PIN_HEIGHT - MAP_PIN_TICK_HEIGHT - MAP_PIN_TICK_TOP_SHIFT + 'px';
+      mainPinY = MapPinLimits.BOTTOM_Y;
     }
-    if (mainPinX < MAP_PIN_LIMITS.leftX) {
-      mainPinX = MAP_PIN_LIMITS.leftX;
-      mapPinMain.style.left = MAP_PIN_LIMITS.leftX - MAP_PIN_WIDTH / 2 + 'px';
-    } else if (mainPinX > MAP_PIN_LIMITS.rightX) {
-      mainPinX = MAP_PIN_LIMITS.rightX;
-      mapPinMain.style.left = MAP_PIN_LIMITS.rightX - MAP_PIN_WIDTH / 2 + 'px';
+    if (mainPinX < MapPinLimits.LEFT_X) {
+      mainPinX = MapPinLimits.LEFT_X;
+      mapPinMain.style.left = MapPinLimits.LEFT_X - MAP_PIN_WIDTH / 2 + 'px';
+    } else if (mainPinX > MapPinLimits.RIGHT_X) {
+      mainPinX = MapPinLimits.RIGHT_X;
+      mapPinMain.style.left = MapPinLimits.RIGHT_X - MAP_PIN_WIDTH / 2 + 'px';
     }
   };
 
@@ -129,7 +129,7 @@
     MAP_PIN_DEFAULT_Y: MAP_PIN_DEFAULT_Y,
     MAP_PIN_WIDTH: MAP_PIN_WIDTH,
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,
-    changeMapStatus: changeMapStatus
+    changeStatus: changeMapStatus
   };
 
   window.utils.changeInputs('.map__filter', true);
