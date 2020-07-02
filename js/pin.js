@@ -24,7 +24,9 @@
 
   var loadData = function (receivedData) {
     for (var i = 0; i < receivedData.length; i++) {
-      mainArray.push(receivedData[i]);
+      if (receivedData[i].offer) {
+        mainArray.push(receivedData[i]);
+      }
     }
     updateArray(mainArray);
   };
