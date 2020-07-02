@@ -124,6 +124,9 @@
 
   mapPinMain.addEventListener('mousedown', onMapPinClick);
   mapPinMain.addEventListener('keydown', onMapPinEnter);
+
+  window.utils.changeInputs('.map__filter', true);
+
   window.map = {
     MAP_PIN_DEFAULT_X: MAP_PIN_DEFAULT_X,
     MAP_PIN_DEFAULT_Y: MAP_PIN_DEFAULT_Y,
@@ -131,6 +134,4 @@
     MAP_PIN_HEIGHT: MAP_PIN_HEIGHT,
     changeStatus: changeMapStatus
   };
-
-  window.utils.changeInputs('.map__filter', true);
 })();

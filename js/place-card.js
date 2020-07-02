@@ -19,19 +19,21 @@
     }
   };
 
+  var placeCard = function (advert) {
+    if (document.querySelector('.popup')) {
+      closeCard();
+    }
+
+    var fragmentCard = document.createDocumentFragment();
+    fragmentCard.appendChild(window.renderCard.create(advert));
+    document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
+
+    document.addEventListener('keydown', onCardEsc);
+    document.querySelector('.popup__close').addEventListener('click', onCardCloseClick);
+  };
+
   window.placeCard = {
-    place: function (advert) {
-      if (document.querySelector('.popup')) {
-        closeCard();
-      }
-
-      var fragmentCard = document.createDocumentFragment();
-      fragmentCard.appendChild(window.renderCard.create(advert));
-      document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
-
-      document.addEventListener('keydown', onCardEsc);
-      document.querySelector('.popup__close').addEventListener('click', onCardCloseClick);
-    },
+    place: placeCard,
     close: closeCard
   };
 })();

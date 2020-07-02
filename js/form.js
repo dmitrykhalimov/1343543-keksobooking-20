@@ -128,9 +128,9 @@
 
   formAdvert.addEventListener('submit', onFormSubmit);
 
+  window.utils.changeInputs('fieldset', true);
+
   window.form = {
     updateMapAddress: updateMapAddress
   };
-
-  window.utils.changeInputs('fieldset', true);
 })();

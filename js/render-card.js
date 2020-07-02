@@ -55,25 +55,27 @@
     return capacityString;
   };
 
+  var createCard = function (advert) {
+    var card = cardTemplate.cloneNode(true);
+
+    card.querySelector('.popup__title').textContent = advert.offer.title;
+    card.querySelector('.popup__text--address').textContent = advert.offer.address;
+    card.querySelector('.popup__text--price').textContent = advert.offer.price + ' ₽/ночь';
+    card.querySelector('.popup__type').textContent = typeFlat[advert.offer.type];
+    card.querySelector('.popup__text--capacity').textContent = (generateCapacityString(advert.offer.rooms, advert.offer.guests));
+    card.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
+    card.querySelector('.popup__description').textContent = advert.offer.description;
+    card.querySelector('.popup__avatar').src = advert.author.avatar;
+
+    renderFeatures(advert.offer.features, card);
+    renderPictures(advert.offer.photos, card);
+
+    return card;
+  };
+
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   window.renderCard = {
-    create: function (advert) {
-      var card = cardTemplate.cloneNode(true);
-
-      card.querySelector('.popup__title').textContent = advert.offer.title;
-      card.querySelector('.popup__text--address').textContent = advert.offer.address;
-      card.querySelector('.popup__text--price').textContent = advert.offer.price + ' ₽/ночь';
-      card.querySelector('.popup__type').textContent = typeFlat[advert.offer.type];
-      card.querySelector('.popup__text--capacity').textContent = (generateCapacityString(advert.offer.rooms, advert.offer.guests));
-      card.querySelector('.popup__text--time').textContent = 'Заезд после ' + advert.offer.checkin + ', выезд до ' + advert.offer.checkout;
-      card.querySelector('.popup__description').textContent = advert.offer.description;
-      card.querySelector('.popup__avatar').src = advert.author.avatar;
-
-      renderFeatures(advert.offer.features, card);
-      renderPictures(advert.offer.photos, card);
-
-      return card;
-    }
+    create: createCard
   };
 })();
