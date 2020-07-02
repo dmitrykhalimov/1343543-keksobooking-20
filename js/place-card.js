@@ -20,18 +20,18 @@
   };
 
   window.placeCard = {
-    placeCard: function (advert) {
+    place: function (advert) {
       if (document.querySelector('.popup')) {
         closeCard();
       }
 
       var fragmentCard = document.createDocumentFragment();
-      fragmentCard.appendChild(window.renderCard.createCard(advert));
+      fragmentCard.appendChild(window.renderCard.create(advert));
       document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
 
       document.addEventListener('keydown', onCardEsc);
       document.querySelector('.popup__close').addEventListener('click', onCardCloseClick);
     },
-    closeCard: closeCard
+    close: closeCard
   };
 })();

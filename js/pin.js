@@ -19,7 +19,7 @@
         document.querySelector('.map__pin--active').classList.remove('map__pin--active');
       }
       mapPin.classList.add('map__pin--active');
-      window.placeCard.placeCard(advert);
+      window.placeCard.place(advert);
     });
     return mapPin;
   };

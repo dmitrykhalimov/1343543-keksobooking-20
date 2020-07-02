@@ -58,7 +58,7 @@
   var cardTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   window.renderCard = {
-    createCard: function (advert) {
+    create: function (advert) {
       var card = cardTemplate.cloneNode(true);
 
       card.querySelector('.popup__title').textContent = advert.offer.title;

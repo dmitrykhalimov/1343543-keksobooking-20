@@ -64,7 +64,7 @@
     window.debounce(function () {
       filteredSimilarPins = [];
       if (document.querySelector('.popup')) {
-        window.placeCard.closeCard();
+        window.placeCard.close();
       }
       for (var i = 0; i < window.pin.mainArray.length; i++) {
         if (filteredSimilarPins.length === window.pin.MAX_PIN_QUANTITY) {

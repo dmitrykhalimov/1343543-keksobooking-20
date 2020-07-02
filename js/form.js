@@ -97,7 +97,7 @@
   var resetAllData = function () {
     formAdvert.reset();
     if (document.querySelector('.popup')) {
-      window.placeCard.closeCard();
+      window.placeCard.close();
     }
     window.filters.filteredSimilarPins = window.pin.mainArray;
     window.filters.reset();
