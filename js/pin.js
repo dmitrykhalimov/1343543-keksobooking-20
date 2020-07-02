@@ -1,12 +1,12 @@
 'use strict';
 
 (function () {
-  var fragment = document.createDocumentFragment();
-  var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
   var PIN_SHIFT_X = 25;
   var PIN_SHIFT_Y = 70;
   var MAX_PIN_QUANTITY = 5;
+
+  var fragment = document.createDocumentFragment();
+  var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
 
   var renderAdvert = function (advert) {
     var mapPin = mapPinTemplate.cloneNode(true);
