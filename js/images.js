@@ -7,14 +7,28 @@
   var avatarPlace = document.querySelector('.ad-form-header__preview img');
 
   var photoInput = document.querySelector('.ad-form__upload input[type=file]');
-  var photoPlace = document.querySelector('.ad-form__photo img');
+  var photoPlace;
+  var photoContainer = document.querySelector('.ad-form__photo');
 
   var onAvatarLoad = function () {
     updatePhoto(avatarInput, avatarPlace);
   };
 
   var onPhotoLoad = function () {
+    if (!photoContainer.querySelector('img')) {
+      createPhoto();
+    }
     updatePhoto(photoInput, photoPlace);
+  };
+
+  var createPhoto = function () {
+    var photo = document.createElement('img');
+
+    photo.width = '40';
+    photo.height = '44';
+    photo.alt = 'Фотография квартиры';
+    photoContainer.appendChild(photo);
+    photoPlace = photoContainer.querySelector('img');
   };
 
   var updatePhoto = function (selectedInput, imagePlace) {
@@ -42,7 +56,9 @@
 
   var imagesReset = function () {
     avatarPlace.src = 'img/muffin-grey.svg';
-    photoPlace.src = '';
+    if (photoContainer.querySelector('img')) {
+      photoPlace.remove();
+    }
   };
 
   window.images = {
