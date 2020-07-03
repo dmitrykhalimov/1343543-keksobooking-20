@@ -12,6 +12,7 @@
 
   var closeCard = function () {
     cardPopup().remove();
+    window.pin.removeActive();
     document.removeEventListener('keydown', onCardEsc);
     document.removeEventListener('click', onCardCloseClick);
   };

@@ -7,7 +7,7 @@
 
   var fragment = document.createDocumentFragment();
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-  console.clear();
+
   var renderAdvert = function (advert) {
     var mapPin = mapPinTemplate.cloneNode(true);
     mapPin.style.left = Number(advert.location.x - PIN_SHIFT_X) + 'px';
@@ -15,14 +15,18 @@
     mapPin.querySelector('img').src = advert.author.avatar;
     mapPin.querySelector('img').alt = advert.offer.title;
     mapPin.addEventListener('click', function () {
-      var activePin = document.querySelector('.map__pin--active');
-      if (activePin) {
-        activePin.classList.remove('map__pin--active');
-      }
+      removeActivePin();
       mapPin.classList.add('map__pin--active');
       window.placeCard.place(advert);
     });
     return mapPin;
+  };
+
+  var removeActivePin = function () {
+    var activePin = document.querySelector('.map__pin--active');
+    if (activePin) {
+      activePin.classList.remove('map__pin--active');
+    }
   };
 
   var adverts = [];
@@ -62,6 +66,7 @@
   window.pin = {
     createSimilar: createSimilar,
     removeSimilar: removeSimilar,
+    removeActive: removeActivePin,
     adverts: adverts,
     reloadData: updateArray,
     MAX_PIN_QUANTITY: MAX_PIN_QUANTITY

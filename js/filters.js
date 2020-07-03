@@ -43,12 +43,11 @@
   };
 
   var checkFeatures = function (offer) {
-    var checkedFeatures = [];
-    for (var i = 0; i < features.length; i++) {
-      if (features[i].checked) {
-        checkedFeatures.push(features[i].value);
-      }
-    }
+    var checkedFeatures = [].filter.call(features, function (feature) {
+      return feature.checked;
+    }).map(function (feature) {
+      return feature.value;
+    });
     return !checkedFeatures.length || window.utils.isIncludeArray(offer.features, checkedFeatures);
   };
 

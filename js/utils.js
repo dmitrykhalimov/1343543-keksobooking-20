@@ -1,11 +1,10 @@
 'use strict';
 
 (function () {
-
   var changeInputs = function (inputClass, isDisabled) {
     var inputs = document.querySelectorAll(inputClass);
-    inputs.forEach(function (el) {
-      el.disabled = isDisabled;
+    inputs.forEach(function (input) {
+      input.disabled = isDisabled;
     });
   };
   var isIncludeArray = function (dataDefault, dataToCompare) {
