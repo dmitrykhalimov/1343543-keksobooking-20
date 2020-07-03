@@ -28,11 +28,9 @@
   var adverts = [];
 
   var loadData = function (receivedData) {
-    for (var i = 0; i < receivedData.length; i++) {
-      if (receivedData[i].offer) {
-        adverts.push(receivedData[i]);
-      }
-    }
+    adverts = receivedData.filter(function (advert) {
+      return advert.offer;
+    });
     updateArray(adverts);
   };
 
