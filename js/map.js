@@ -27,8 +27,7 @@
     if (method === 'activate') {
       classToDo = 'remove';
       isInputsDisabled = false;
-
-      window.pin.createSimilar();
+      window.pin.downloadData();
     } else if (method === 'deactivate') {
       isFirstActivation = true;
       mapPinMain.style.left = MAP_PIN_DEFAULT_X + 'px';

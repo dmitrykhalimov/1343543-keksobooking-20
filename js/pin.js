@@ -36,6 +36,7 @@
       return advert.offer;
     }));
     updateArray(adverts);
+    createSimilar();
   };
 
   var updateArray = function (dataToRender) {
@@ -61,13 +62,16 @@
     document.querySelector('.map__pins').appendChild(fragment);
   };
 
-  window.backend.sendLoadData('GET', 'https://javascript.pages.academy/keksobooking/data', loadData, window.backend.drawError);
+  var downloadData = function () {
+    window.backend.sendLoadData('GET', 'https://javascript.pages.academy/keksobooking/data', loadData, window.backend.drawError);
+  };
 
   window.pin = {
     createSimilar: createSimilar,
     removeSimilar: removeSimilar,
     removeActive: removeActivePin,
     adverts: adverts,
+    downloadData: downloadData,
     reloadData: updateArray,
     MAX_PIN_QUANTITY: MAX_PIN_QUANTITY
   };
