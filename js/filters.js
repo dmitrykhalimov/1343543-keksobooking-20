@@ -63,7 +63,7 @@
   var onFiltersBarChange = function () {
     window.debounce(function () {
       filteredSimilarPins = [];
-      if (document.querySelector('.popup')) {
+      if (window.placeCard.popup()) {
         window.placeCard.close();
       }
       for (var i = 0; i < window.pin.adverts.length; i++) {

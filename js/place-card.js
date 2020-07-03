@@ -6,21 +6,25 @@
     closeCard();
   };
 
+  var cardPopup = function () {
+    return document.querySelector('.popup');
+  };
+
   var closeCard = function () {
-    document.querySelector('.popup').remove();
+    cardPopup().remove();
     document.removeEventListener('keydown', onCardEsc);
     document.removeEventListener('click', onCardCloseClick);
   };
 
   var onCardEsc = function (evt) {
-    if (evt.key === 'Escape' && document.querySelector('.popup')) {
+    if (evt.key === 'Escape' && cardPopup()) {
       evt.preventDefault();
       closeCard();
     }
   };
 
   var placeCard = function (advert) {
-    if (document.querySelector('.popup')) {
+    if (cardPopup()) {
       closeCard();
     }
 
@@ -34,6 +38,7 @@
 
   window.placeCard = {
     place: placeCard,
-    close: closeCard
+    close: closeCard,
+    popup: cardPopup
   };
 })();
