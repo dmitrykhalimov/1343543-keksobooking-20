@@ -7,7 +7,7 @@
 
   var fragment = document.createDocumentFragment();
   var mapPinTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-
+  console.clear();
   var renderAdvert = function (advert) {
     var mapPin = mapPinTemplate.cloneNode(true);
     mapPin.style.left = Number(advert.location.x - PIN_SHIFT_X) + 'px';
@@ -28,9 +28,9 @@
   var adverts = [];
 
   var loadData = function (receivedData) {
-    adverts = receivedData.filter(function (advert) {
+    Object.assign(adverts, receivedData.filter(function (advert) {
       return advert.offer;
-    });
+    }));
     updateArray(adverts);
   };
 
