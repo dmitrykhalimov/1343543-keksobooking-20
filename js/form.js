@@ -25,6 +25,7 @@
   var guestsNumber = document.querySelector('#capacity');
   var resetButton = document.querySelector('.ad-form__reset');
 
+
   var onTimeInChange = function () {
     timeOut.value = timeIn.value;
   };
@@ -51,10 +52,16 @@
   });
 
   roomsNumber.addEventListener('change', function () {
-    for (var j = 0; j < guestsNumber.options.length; j++) {
-      guestsNumber[j].disabled = !disabledRooms[roomsNumber.value].includes(guestsNumber.options[j].value);
-    }
+    [].forEach.call(guestsNumber.options, function (option) {
+      option.disabled = !disabledRooms[roomsNumber.value].includes(option.value);
+    });
   });
+
+  var guestsStatusReset = function () {
+    [].forEach.call(guestsNumber.options, function (option) {
+      option.disabled = false;
+    });
+  };
 
   var updateMapAddress = function (valueX, valueY) {
     var fieldAddress = document.querySelector('#address');
@@ -101,6 +108,7 @@
     }
     window.filters.filteredSimilarPins = window.pin.adverts;
     window.filters.reset();
+    guestsStatusReset();
     window.map.changeStatus('deactivate');
     window.images.reset();
     window.pin.removeSimilar();
