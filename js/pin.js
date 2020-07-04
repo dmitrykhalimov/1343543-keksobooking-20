@@ -15,24 +15,28 @@
     mapPin.querySelector('img').src = advert.author.avatar;
     mapPin.querySelector('img').alt = advert.offer.title;
     mapPin.addEventListener('click', function () {
-      if (document.querySelector('.map__pin--active')) {
-        document.querySelector('.map__pin--active').classList.remove('map__pin--active');
-      }
+      removeActivePin();
       mapPin.classList.add('map__pin--active');
       window.placeCard.place(advert);
     });
     return mapPin;
   };
 
+  var removeActivePin = function () {
+    var activePin = document.querySelector('.map__pin--active');
+    if (activePin) {
+      activePin.classList.remove('map__pin--active');
+    }
+  };
+
   var adverts = [];
 
   var loadData = function (receivedData) {
-    for (var i = 0; i < receivedData.length; i++) {
-      if (receivedData[i].offer) {
-        adverts.push(receivedData[i]);
-      }
-    }
+    Object.assign(adverts, receivedData.filter(function (advert) {
+      return advert.offer;
+    }));
     updateArray(adverts);
+    createSimilar();
   };
 
   var updateArray = function (dataToRender) {
@@ -58,12 +62,16 @@
     document.querySelector('.map__pins').appendChild(fragment);
   };
 
-  window.backend.sendLoadData('GET', 'https://javascript.pages.academy/keksobooking/data', loadData, window.backend.drawError);
+  var downloadData = function () {
+    window.backend.sendLoadData('GET', 'https://javascript.pages.academy/keksobooking/data', loadData, window.backend.drawError);
+  };
 
   window.pin = {
     createSimilar: createSimilar,
     removeSimilar: removeSimilar,
+    removeActive: removeActivePin,
     adverts: adverts,
+    downloadData: downloadData,
     reloadData: updateArray,
     MAX_PIN_QUANTITY: MAX_PIN_QUANTITY
   };

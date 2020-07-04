@@ -25,6 +25,7 @@
   var guestsNumber = document.querySelector('#capacity');
   var resetButton = document.querySelector('.ad-form__reset');
 
+
   var onTimeInChange = function () {
     timeOut.value = timeIn.value;
   };
@@ -51,10 +52,16 @@
   });
 
   roomsNumber.addEventListener('change', function () {
-    for (var j = 0; j < guestsNumber.options.length; j++) {
-      guestsNumber[j].disabled = !disabledRooms[roomsNumber.value].includes(guestsNumber.options[j].value);
-    }
+    [].forEach.call(guestsNumber.options, function (option) {
+      option.disabled = !disabledRooms[roomsNumber.value].includes(option.value);
+    });
   });
+
+  var guestsStatusReset = function () {
+    [].forEach.call(guestsNumber.options, function (option) {
+      option.disabled = false;
+    });
+  };
 
   var updateMapAddress = function (valueX, valueY) {
     var fieldAddress = document.querySelector('#address');
@@ -71,7 +78,7 @@
 
     var closePopup = function () {
       document.querySelector('.' + nameFunction).removeEventListener('click', onPopupClick);
-      document.removeEventListener('keydown', onPopupEsc);
+      document.removeEventListener('keydown', onDocumentKeyDown);
       document.querySelector('.' + nameFunction).remove();
     };
 
@@ -79,7 +86,7 @@
       closePopup();
     };
 
-    var onPopupEsc = function (evt) {
+    var onDocumentKeyDown = function (evt) {
       if (evt.key === 'Escape') {
         evt.preventDefault();
         closePopup();
@@ -87,7 +94,7 @@
     };
 
     popup.addEventListener('click', onPopupClick);
-    document.addEventListener('keydown', onPopupEsc);
+    document.addEventListener('keydown', onDocumentKeyDown);
 
     main.appendChild(popup);
   };
@@ -96,11 +103,12 @@
 
   var resetAllData = function () {
     formAdvert.reset();
-    if (document.querySelector('.popup')) {
+    if (window.placeCard.popup()) {
       window.placeCard.close();
     }
     window.filters.filteredSimilarPins = window.pin.adverts;
     window.filters.reset();
+    guestsStatusReset();
     window.map.changeStatus('deactivate');
     window.images.reset();
     window.pin.removeSimilar();
@@ -128,9 +136,9 @@
 
   formAdvert.addEventListener('submit', onFormSubmit);
 
+  window.utils.changeInputs('fieldset', true);
+
   window.form = {
     updateMapAddress: updateMapAddress
   };
-
-  window.utils.changeInputs('fieldset', true);
 })();
