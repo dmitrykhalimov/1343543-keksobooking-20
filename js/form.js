@@ -58,9 +58,7 @@
   });
 
   var guestsStatusReset = function () {
-    [].forEach.call(guestsNumber.options, function (option) {
-      option.disabled = false;
-    });
+    window.utils.changeInputs('#capacity option', false);
   };
 
   var updateMapAddress = function (valueX, valueY) {
