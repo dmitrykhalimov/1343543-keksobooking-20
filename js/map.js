@@ -10,10 +10,11 @@
 
   var MapPinLimits = {
     LEFT_X: 0,
-    rightX: 1200,
     TOP_Y: 130,
     BOTTOM_Y: 630
   };
+
+  var limitRightX = 1200;
 
   var mainPinX = MAP_PIN_DEFAULT_X + MAP_PIN_WIDTH / 2;
   var mainPinY = MAP_PIN_DEFAULT_Y + MAP_PIN_HEIGHT + MAP_PIN_TICK_HEIGHT + MAP_PIN_TICK_TOP_SHIFT;
@@ -56,9 +57,9 @@
     if (mainPinX < MapPinLimits.LEFT_X) {
       mainPinX = MapPinLimits.LEFT_X;
       mapPinMain.style.left = MapPinLimits.LEFT_X - MAP_PIN_WIDTH / 2 + 'px';
-    } else if (mainPinX > MapPinLimits.rightX) {
-      mainPinX = MapPinLimits.rightX;
-      mapPinMain.style.left = MapPinLimits.rightX - MAP_PIN_WIDTH / 2 + 'px';
+    } else if (mainPinX > limitRightX) {
+      mainPinX = limitRightX;
+      mapPinMain.style.left = limitRightX - MAP_PIN_WIDTH / 2 + 'px';
     }
   };
 
@@ -78,7 +79,7 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-      MapPinLimits.rightX = mapField.clientWidth;
+      limitRightX = mapField.clientWidth;
 
       var shift = {
         x: finishCoords.x - moveEvt.clientX,
@@ -93,7 +94,7 @@
       mainPinX = mainPinX - shift.x;
       mainPinY = mainPinY - shift.y;
 
-      if (mainPinY < MapPinLimits.TOP_Y || mainPinY > MapPinLimits.BOTTOM_Y || mainPinX < MapPinLimits.LEFT_X || mainPinX > MapPinLimits.RIGHT_X) {
+      if (mainPinY < MapPinLimits.TOP_Y || mainPinY > MapPinLimits.BOTTOM_Y || mainPinX < MapPinLimits.LEFT_X || mainPinX > limitRightX) {
         reinitalizePositions();
       }
 
