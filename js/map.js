@@ -10,7 +10,7 @@
 
   var MapPinLimits = {
     LEFT_X: 0,
-    RIGHT_X: 1200,
+    rightX: 1200,
     TOP_Y: 130,
     BOTTOM_Y: 630
   };
@@ -19,6 +19,7 @@
   var mainPinY = MAP_PIN_DEFAULT_Y + MAP_PIN_HEIGHT + MAP_PIN_TICK_HEIGHT + MAP_PIN_TICK_TOP_SHIFT;
 
   var mapPinMain = document.querySelector('.map__pin--main');
+  var mapField = document.querySelector('.map__overlay');
 
   var changeMapStatus = function (method) {
     var classToDo = 'add';
@@ -55,9 +56,9 @@
     if (mainPinX < MapPinLimits.LEFT_X) {
       mainPinX = MapPinLimits.LEFT_X;
       mapPinMain.style.left = MapPinLimits.LEFT_X - MAP_PIN_WIDTH / 2 + 'px';
-    } else if (mainPinX > MapPinLimits.RIGHT_X) {
-      mainPinX = MapPinLimits.RIGHT_X;
-      mapPinMain.style.left = MapPinLimits.RIGHT_X - MAP_PIN_WIDTH / 2 + 'px';
+    } else if (mainPinX > MapPinLimits.rightX) {
+      mainPinX = MapPinLimits.rightX;
+      mapPinMain.style.left = MapPinLimits.rightX - MAP_PIN_WIDTH / 2 + 'px';
     }
   };
 
@@ -77,6 +78,7 @@
 
     var onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
+      MapPinLimits.rightX = mapField.clientWidth;
 
       var shift = {
         x: finishCoords.x - moveEvt.clientX,
@@ -93,10 +95,10 @@
 
       if (mainPinY < MapPinLimits.TOP_Y || mainPinY > MapPinLimits.BOTTOM_Y || mainPinX < MapPinLimits.LEFT_X || mainPinX > MapPinLimits.RIGHT_X) {
         reinitalizePositions();
-      } else {
-        mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
-        mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
       }
+
+      mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
+      mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
 
       window.form.updateMapAddress(mainPinX, mainPinY);
     };
