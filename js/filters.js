@@ -59,7 +59,7 @@
     checkFeatures(offer);
   };
 
-  var onFiltersBarChange = function () {
+  var onFiltersFormChange = function () {
     window.debounce(function () {
       filteredSimilarPins = [];
       if (window.placeCard.popup()) {
@@ -78,7 +78,7 @@
     });
   };
 
-  filtersForm.addEventListener('change', onFiltersBarChange);
+  filtersForm.addEventListener('change', onFiltersFormChange);
 
   var resetFilters = function () {
     filtersForm.reset();

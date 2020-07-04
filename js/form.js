@@ -78,7 +78,7 @@
 
     var closePopup = function () {
       document.querySelector('.' + nameFunction).removeEventListener('click', onPopupClick);
-      document.removeEventListener('keydown', onPopupEsc);
+      document.removeEventListener('keydown', onDocumentKeyDown);
       document.querySelector('.' + nameFunction).remove();
     };
 
@@ -86,7 +86,7 @@
       closePopup();
     };
 
-    var onPopupEsc = function (evt) {
+    var onDocumentKeyDown = function (evt) {
       if (evt.key === 'Escape') {
         evt.preventDefault();
         closePopup();
@@ -94,7 +94,7 @@
     };
 
     popup.addEventListener('click', onPopupClick);
-    document.addEventListener('keydown', onPopupEsc);
+    document.addEventListener('keydown', onDocumentKeyDown);
 
     main.appendChild(popup);
   };

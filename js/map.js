@@ -65,7 +65,7 @@
 
   var isFirstActivation = true;
 
-  var onMapPinClick = function (evt) {
+  var onMapPinMouseDown = function (evt) {
     if (evt.button === 0 && isFirstActivation) {
       changeMapStatus('activate');
       window.form.updateMapAddress(mainPinX, mainPinY);
@@ -117,15 +117,15 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
-  var onMapPinEnter = function (evt) {
+  var onMapPinKeyDown = function (evt) {
     if (evt.key === 'Enter') {
       changeMapStatus('activate');
-      mapPinMain.removeEventListener('keydown', onMapPinEnter);
+      mapPinMain.removeEventListener('keydown', onMapPinKeyDown);
     }
   };
 
-  mapPinMain.addEventListener('mousedown', onMapPinClick);
-  mapPinMain.addEventListener('keydown', onMapPinEnter);
+  mapPinMain.addEventListener('mousedown', onMapPinMouseDown);
+  mapPinMain.addEventListener('keydown', onMapPinKeyDown);
 
   window.utils.changeInputs('.map__filter', true);
 

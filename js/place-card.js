@@ -13,11 +13,11 @@
   var closeCard = function () {
     cardPopup().remove();
     window.pin.removeActive();
-    document.removeEventListener('keydown', onCardEsc);
+    document.removeEventListener('keydown', onCardKeyDown);
     document.removeEventListener('click', onCardCloseClick);
   };
 
-  var onCardEsc = function (evt) {
+  var onCardKeyDown = function (evt) {
     if (evt.key === 'Escape' && cardPopup()) {
       evt.preventDefault();
       closeCard();
@@ -33,7 +33,7 @@
     fragmentCard.appendChild(window.renderCard.create(advert));
     document.querySelector('.map').insertBefore(fragmentCard, document.querySelector('.map__filters-container'));
 
-    document.addEventListener('keydown', onCardEsc);
+    document.addEventListener('keydown', onCardKeyDown);
     document.querySelector('.popup__close').addEventListener('click', onCardCloseClick);
   };
 
