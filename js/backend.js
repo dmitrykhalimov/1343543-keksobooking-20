@@ -38,7 +38,6 @@
     });
 
     xhr.open(method, link);
-    console.log(data);
     xhr.send(data);
   };
 
