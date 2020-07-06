@@ -101,7 +101,7 @@
 
   var resetAllData = function () {
     formAdvert.reset();
-    if (window.placeCard.popup()) {
+    if (window.placeCard.getCardPopup()) {
       window.placeCard.close();
     }
     window.filters.filteredSimilarPins = window.pin.adverts;
