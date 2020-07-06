@@ -31,10 +31,14 @@
 
   var adverts = [];
 
+  var getAdverts = function () {
+    return adverts;
+  };
+
   var loadData = function (receivedData) {
-    Object.assign(adverts, receivedData.filter(function (advert) {
+    adverts = receivedData.filter(function (advert) {
       return advert.offer;
-    }));
+    });
     updateArray(adverts);
     createSimilar();
   };
@@ -70,7 +74,7 @@
     createSimilar: createSimilar,
     removeSimilar: removeSimilar,
     removeActive: removeActivePin,
-    adverts: adverts,
+    getAdverts: getAdverts,
     downloadData: downloadData,
     reloadData: updateArray,
     MAX_PIN_QUANTITY: MAX_PIN_QUANTITY

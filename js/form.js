@@ -104,7 +104,7 @@
     if (window.placeCard.getCardPopup()) {
       window.placeCard.close();
     }
-    window.filters.filteredSimilarPins = window.pin.adverts;
+    window.filters.filteredSimilarPins = window.pin.getAdverts();
     window.filters.reset();
     guestsStatusReset();
     window.map.changeStatus('deactivate');
