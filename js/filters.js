@@ -61,16 +61,17 @@
 
   var onFiltersFormChange = function () {
     window.debounce(function () {
+      var adverts = window.pin.getAdverts();
       filteredSimilarPins = [];
-      if (window.placeCard.popup()) {
+      if (window.placeCard.getCardPopup()) {
         window.placeCard.close();
       }
-      for (var i = 0; i < window.pin.adverts.length; i++) {
+      for (var i = 0; i < adverts.length; i++) {
         if (filteredSimilarPins.length === window.pin.MAX_PIN_QUANTITY) {
           break;
         }
-        if (isSimilar(window.pin.adverts[i].offer)) {
-          filteredSimilarPins.push(window.pin.adverts[i]);
+        if (isSimilar(adverts[i].offer)) {
+          filteredSimilarPins.push(adverts[i]);
         }
       }
       window.pin.reloadData(filteredSimilarPins);
