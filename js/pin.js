@@ -15,9 +15,8 @@
     mapPin.querySelector('img').src = advert.author.avatar;
     mapPin.querySelector('img').alt = advert.offer.title;
     mapPin.addEventListener('click', function () {
-      removeActivePin();
-      mapPin.classList.add('map__pin--active');
       window.placeCard.place(advert);
+      mapPin.classList.add('map__pin--active');
     });
     return mapPin;
   };
